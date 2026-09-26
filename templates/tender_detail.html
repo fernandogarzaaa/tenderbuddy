@@ -1,0 +1,153 @@
+{% extends "base.html" %}
+{% block title %}{{ t.title }} - {{ app_name }}{% endblock %}
+{% block nav %}
+<a href="/" class="block px-3 py-2 rounded text-stone-600 hover:bg-stone-100">Overview</a>
+<a href="/tenders" class="block px-3 py-2 rounded bg-orange-50 text-orange-700 font-medium">Tenders</a>
+<a href="/sources" class="block px-3 py-2 rounded text-stone-600 hover:bg-stone-100">Sources</a>
+<a href="/profile" class="block px-3 py-2 rounded text-stone-600 hover:bg-stone-100">Company Profile</a>
+{% endblock %}
+{% block content %}
+{% if uploaded %}
+<div class="bg-green-50 border border-green-200 text-green-800 rounded-xl px-4 py-3 mb-4 text-sm">
+  Document analyzed: {{ analysis }} requirement(s) extracted into the bid workspace checklist.
+</div>
+{% endif %}
+
+<div class="flex items-start justify-between gap-4 mb-6">
+  <div>
+    <a href="/tenders" class="text-sm text-orange-600 hover:underline">&larr; Back to tenders</a>
+    <h1 class="text-2xl font-bold mt-1">{{ t.title }}</h1>
+    <p class="text-sm text-stone-500">{{ t.ref_no }} · {{ t.authority }} · {{ t.source }}</p>
+  </div>
+  <form method="post" action="/api/tenders/{{ t.id }}/status" class="flex gap-2 items-center shrink-0">
+    <select name="status" class="border border-stone-300 rounded-lg px-3 py-2 text-sm">
+      {% for s in pipeline %}
+      <option value="{{ s }}" {% if s == t.status %}selected{% endif %}>{{ s }}</option>
+      {% endfor %}
+    </select>
+    <button class="bg-orange-600 text-white rounded-lg px-4 py-2 text-sm">Move status</button>
+  </form>
+</div>
+
+<div class="grid lg:grid-cols-3 gap-4 mb-6">
+  <div class="bg-white rounded-xl border border-stone-200 p-5">
+    <h2 class="font-semibold mb-3">Key facts</h2>
+    <dl class="text-sm space-y-2">
+      <div class="flex justify-between"><dt class="text-stone-500">Estimated value</dt><dd class="font-medium">Rs {{ t.est_value_lakh }} lakh</dd></div>
+      <div class="flex justify-between"><dt class="text-stone-500">EMD</dt><dd class="font-medium">Rs {{ t.emd_lakh }} lakh</dd></div>
+      <div class="flex justify-between"><dt class="text-stone-500">Published</dt><dd>{{ t.published_date.strftime('%d %b %Y') if t.published_date }}</dd></div>
+      <div class="flex justify-between"><dt class="text-stone-500">Deadline</dt><dd class="font-medium {% if days_left <= 7 %}text-red-600{% endif %}">{{ t.deadline.strftime('%d %b %Y') }} ({{ days_left }}d)</dd></div>
+      <div class="flex justify-between"><dt class="text-stone-500">Category</dt><dd>{{ t.category }}</dd></div>
+      <div class="flex justify-between"><dt class="text-stone-500">State</dt><dd>{{ t.state }}</dd></div>
+      <div class="flex justify-between"><dt class="text-stone-500">Status</dt><dd>{{ t.status }}</dd></div>
+    </dl>
+  </div>
+  <div class="bg-white rounded-xl border border-stone-200 p-5">
+    <div class="flex items-center justify-between mb-1">
+      <h2 class="font-semibold">Eligibility match</h2>
+      <span class="text-2xl font-bold {% if score >= threshold %}text-green-700{% elif score >= 40 %}text-amber-600{% else %}text-stone-500{% endif %}">{{ score }}</span>
+    </div>
+    <p class="text-xs text-stone-500 mb-3">Score out of 100, weighted per criterion.</p>
+    <div class="space-y-3">
+      {% for b in breakdown %}
+      <div>
+        <div class="flex justify-between text-sm mb-1">
+          <span class="font-medium">{{ b.criterion }}</span>
+          <span class="{% if b.met %}text-green-700{% else %}text-red-600{% endif %} text-xs font-semibold">{{ b.points }}/{{ b.weight }}{% if b.met %} met{% else %} not met{% endif %}</span>
+        </div>
+        <div class="h-2 bg-stone-100 rounded-full overflow-hidden">
+          <div class="h-full rounded-full {% if b.met %}bg-green-500{% else %}bg-red-400{% endif %}" style="width: {{ (b.points / b.weight * 100)|round(0) if b.weight else 0 }}%"></div>
+        </div>
+        <div class="text-xs text-stone-500 mt-1">Required: {{ b.required }} · Yours: {{ b.actual }}</div>
+      </div>
+      {% endfor %}
+    </div>
+  </div>
+  <div class="bg-white rounded-xl border border-stone-200 p-5">
+    <h2 class="font-semibold mb-3">Documents</h2>
+    <div class="space-y-2 mb-4">
+      {% for d in docs %}
+      <div class="flex items-center justify-between text-sm bg-stone-50 rounded-lg px-3 py-2">
+        <span class="font-medium truncate">{{ d.filename }}</span>
+        <span class="text-xs text-stone-500 shrink-0 ml-2">{{ d.kind }}</span>
+      </div>
+      {% else %}
+      <p class="text-sm text-stone-500">No documents uploaded yet.</p>
+      {% endfor %}
+    </div>
+    <form method="post" action="/api/tenders/{{ t.id }}/documents" enctype="multipart/form-data" class="space-y-2">
+      <select name="kind" class="w-full border border-stone-300 rounded-lg px-3 py-2 text-sm">
+        <option>RFP</option><option>BOQ</option><option>Other</option>
+      </select>
+      <input type="file" name="file" accept=".pdf" required class="text-sm w-full">
+      <button class="w-full bg-stone-900 text-white rounded-lg px-4 py-2 text-sm">Upload and analyze PDF</button>
+    </form>
+  </div>
+</div>
+
+{% if t.description %}
+<div class="bg-white rounded-xl border border-stone-200 p-5 mb-4">
+  <h2 class="font-semibold mb-2">Description</h2>
+  <p class="text-sm text-stone-700">{{ t.description }}</p>
+</div>
+{% endif %}
+
+<div class="grid lg:grid-cols-2 gap-4 mb-4">
+  <div class="bg-white rounded-xl border border-stone-200 p-5">
+    <h2 class="font-semibold mb-3">Requirements checklist</h2>
+    <div class="space-y-2 mb-4">
+      {% for r in reqs %}
+      <form method="post" action="/api/requirements/{{ r.id }}/toggle" class="flex items-start gap-2 text-sm">
+        <button class="mt-0.5 w-5 h-5 rounded border {% if r.is_met %}bg-green-500 border-green-500 text-white{% else %}border-stone-300{% endif %} shrink-0 text-xs">{% if r.is_met %}✓{% endif %}</button>
+        <span class="{% if r.is_met %}line-through text-stone-400{% endif %}">{{ r.text }}</span>
+        {% if r.auto %}<span class="text-[10px] uppercase text-stone-400 shrink-0">auto</span>{% endif %}
+      </form>
+      {% else %}
+      <p class="text-sm text-stone-500">No requirements yet. Upload an RFP to auto-extract, or add manually.</p>
+      {% endfor %}
+    </div>
+    <form method="post" action="/api/tenders/{{ t.id }}/requirements" class="flex gap-2">
+      <input type="hidden" name="kind" value="requirement">
+      <input name="text" placeholder="Add requirement" required class="flex-1 border border-stone-300 rounded-lg px-3 py-2 text-sm">
+      <button class="bg-stone-900 text-white rounded-lg px-4 py-2 text-sm">Add</button>
+    </form>
+  </div>
+  <div class="bg-white rounded-xl border border-stone-200 p-5">
+    <h2 class="font-semibold mb-3">Document checklist</h2>
+    <div class="space-y-2 mb-4">
+      {% for r in docs_check %}
+      <form method="post" action="/api/requirements/{{ r.id }}/toggle" class="flex items-start gap-2 text-sm">
+        <button class="mt-0.5 w-5 h-5 rounded border {% if r.is_met %}bg-green-500 border-green-500 text-white{% else %}border-stone-300{% endif %} shrink-0 text-xs">{% if r.is_met %}✓{% endif %}</button>
+        <span class="{% if r.is_met %}line-through text-stone-400{% endif %}">{{ r.text }}</span>
+        {% if r.auto %}<span class="text-[10px] uppercase text-stone-400 shrink-0">auto</span>{% endif %}
+      </form>
+      {% else %}
+      <p class="text-sm text-stone-500">No document items yet.</p>
+      {% endfor %}
+    </div>
+    <form method="post" action="/api/tenders/{{ t.id }}/requirements" class="flex gap-2">
+      <input type="hidden" name="kind" value="document">
+      <input name="text" placeholder="Add document item" required class="flex-1 border border-stone-300 rounded-lg px-3 py-2 text-sm">
+      <button class="bg-stone-900 text-white rounded-lg px-4 py-2 text-sm">Add</button>
+    </form>
+  </div>
+</div>
+
+<div class="bg-white rounded-xl border border-stone-200 p-5">
+  <h2 class="font-semibold mb-3">Bid notes</h2>
+  <div class="space-y-2 mb-4">
+    {% for n in notes %}
+    <div class="text-sm bg-stone-50 rounded-lg px-3 py-2">
+      <p>{{ n.text }}</p>
+      <p class="text-xs text-stone-400 mt-1">{{ n.created_at.strftime('%d %b %Y %H:%M') }} UTC</p>
+    </div>
+    {% else %}
+    <p class="text-sm text-stone-500">No notes yet.</p>
+    {% endfor %}
+  </div>
+  <form method="post" action="/api/tenders/{{ t.id }}/notes" class="flex gap-2">
+    <input name="text" placeholder="Add a note" required class="flex-1 border border-stone-300 rounded-lg px-3 py-2 text-sm">
+    <button class="bg-stone-900 text-white rounded-lg px-4 py-2 text-sm">Add note</button>
+  </form>
+</div>
+{% endblock %}

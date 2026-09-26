@@ -1,0 +1,72 @@
+{% extends "base.html" %}
+{% block title %}Overview - {{ app_name }}{% endblock %}
+{% block nav %}
+<a href="/" class="block px-3 py-2 rounded bg-orange-50 text-orange-700 font-medium">Overview</a>
+<a href="/tenders" class="block px-3 py-2 rounded text-stone-600 hover:bg-stone-100">Tenders</a>
+<a href="/sources" class="block px-3 py-2 rounded text-stone-600 hover:bg-stone-100">Sources</a>
+<a href="/profile" class="block px-3 py-2 rounded text-stone-600 hover:bg-stone-100">Company Profile</a>
+{% endblock %}
+{% block content %}
+<h1 class="text-2xl font-bold mb-1">Overview</h1>
+<p class="text-sm text-stone-500 mb-6">Tender pipeline at a glance. Match threshold: {{ threshold }}.</p>
+
+<div class="grid grid-cols-2 lg:grid-cols-4 gap-4 mb-6">
+  <div class="bg-white rounded-xl border border-stone-200 p-5">
+    <div class="text-xs uppercase tracking-wide text-stone-500">Open tenders</div>
+    <div class="text-3xl font-bold mt-1">{{ open_count }}</div>
+  </div>
+  <div class="bg-white rounded-xl border border-stone-200 p-5">
+    <div class="text-xs uppercase tracking-wide text-stone-500">Matched ({{ threshold }}+)</div>
+    <div class="text-3xl font-bold mt-1 text-green-700">{{ matched_count }}</div>
+  </div>
+  <div class="bg-white rounded-xl border border-stone-200 p-5">
+    <div class="text-xs uppercase tracking-wide text-stone-500">Avg match score</div>
+    <div class="text-3xl font-bold mt-1">{{ avg_score }}</div>
+  </div>
+  <div class="bg-white rounded-xl border border-stone-200 p-5">
+    <div class="text-xs uppercase tracking-wide text-stone-500">Deadlines this week</div>
+    <div class="text-3xl font-bold mt-1 {% if alerts %}text-red-600{% endif %}">{{ alerts|length }}</div>
+  </div>
+</div>
+
+{% if alerts %}
+<div class="bg-red-50 border border-red-200 rounded-xl p-5 mb-6">
+  <h2 class="font-semibold text-red-800 mb-3">Upcoming deadline alerts</h2>
+  <div class="space-y-2">
+    {% for t in alerts %}
+    <div class="flex items-center justify-between bg-white rounded-lg px-4 py-2 border border-red-100">
+      <a href="/tenders/{{ t.id }}" class="font-medium hover:text-orange-600">{{ t.title }}</a>
+      <span class="text-sm text-red-700 font-medium">
+        {{ t.deadline.strftime('%d %b %Y') }} ({{ days_left(t) }}d left)
+      </span>
+    </div>
+    {% endfor %}
+  </div>
+</div>
+{% endif %}
+
+<div class="grid lg:grid-cols-2 gap-4">
+  <div class="bg-white rounded-xl border border-stone-200 p-5">
+    <h2 class="font-semibold mb-3">Tenders by category</h2>
+    <canvas id="catChart" height="180"></canvas>
+  </div>
+  <div class="bg-white rounded-xl border border-stone-200 p-5">
+    <h2 class="font-semibold mb-3">Tenders published by month</h2>
+    <canvas id="monthChart" height="180"></canvas>
+  </div>
+</div>
+{% endblock %}
+{% block scripts %}
+<script>
+new Chart(document.getElementById('catChart'), {
+  type: 'bar',
+  data: { labels: {{ cat_labels|tojson }}, datasets: [{ data: {{ cat_values|tojson }}, backgroundColor: '#ea580c' }] },
+  options: { plugins: { legend: { display: false } }, scales: { y: { beginAtZero: true, ticks: { stepSize: 1 } } } }
+});
+new Chart(document.getElementById('monthChart'), {
+  type: 'line',
+  data: { labels: {{ month_labels|tojson }}, datasets: [{ data: {{ month_values|tojson }}, borderColor: '#ea580c', backgroundColor: 'rgba(234,88,12,.15)', fill: true, tension: .3 }] },
+  options: { plugins: { legend: { display: false } }, scales: { y: { beginAtZero: true, ticks: { stepSize: 1 } } } }
+});
+</script>
+{% endblock %}
