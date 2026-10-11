@@ -268,9 +268,9 @@ def test_csv_import_ui(auth_client: TestClient) -> None:
                          files={"file": ("t.csv", io.BytesIO(csv_text.encode()), "text/csv")})
     assert "Import complete: 1 new, 0 updated, 0 unchanged, 1 skipped." in r.text
     assert "First problem: row 3" in r.text
-    r2 = auth_client.post("/tenders/import", data={"csrf_token": token},
+    r2 = auth_client.post("/tenders/import", data={"source": "PhilGEPS", "csrf_token": token},
                           files={"file": ("t.csv", io.BytesIO(csv_text.encode()), "text/csv")})
-    assert "0 new" in r2.text
+    assert "Import complete: 0 new, 0 updated, 1 unchanged" in r2.text
     bad = auth_client.post("/tenders/import", data={"csrf_token": token},
                            files={"file": ("t.csv", io.BytesIO(b"a,b\n1,2\n"), "text/csv")})
     assert "Import failed: CSV is missing required column(s)" in bad.text
