@@ -1,18 +1,9 @@
 {
   "name": "tenderbuddy",
-  "dockerComposeFile": [
-    "../docker-compose.yml"
-  ],
-  "service": "api",
-  "workspaceFolder": "/srv/app",
-  "forwardPorts": [
-    "8004"
-  ],
-  "portsAttributes": {
-    "8004": {
-      "label": "tenderbuddy",
-      "onAutoForward": "openPreview"
-    }
-  },
-  "postCreateCommand": "echo 'Codespace ready: the app auto-seeds on first boot.'"
+  "image": "mcr.microsoft.com/devcontainers/python:3.12",
+  "forwardPorts": [8004],
+  "portsAttributes": {"8004": {"label": "tenderbuddy", "onAutoForward": "openPreview"}},
+  "postCreateCommand": "pip install -e '.[dev]' && tenderbuddy seed-demo",
+  "postStartCommand": "nohup tenderbuddy serve --port 8004 > /tmp/tenderbuddy.log 2>&1 &",
+  "containerEnv": {"LOG_FORMAT": "text", "SECRET_KEY": "codespace-demo-secret-key-not-for-production"}
 }
