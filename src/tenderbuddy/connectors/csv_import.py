@@ -135,11 +135,14 @@ def parse_csv_bytes(data: bytes, default_source: str) -> FetchResult:
     if len(data) > MAX_CSV_BYTES:
         raise CsvFormatError("CSV file is larger than 10 MB")
     reader = csv.DictReader(io.StringIO(data.decode("utf-8-sig", errors="replace")))
-    headers = {h.strip().lower() for h in reader.fieldnames or [] if h}
-    missing = {"title", "deadline"} - headers
-    if missing:
-        raise CsvFormatError("CSV is missing required column(s): " + ", ".join(sorted(missing)))
-    return parse_rows(reader, default_source)
+    try:
+        headers = {h.strip().lower() for h in reader.fieldnames or [] if h}
+        missing = {"title", "deadline"} - headers
+        if missing:
+            raise CsvFormatError("CSV is missing required column(s): " + ", ".join(sorted(missing)))
+        return parse_rows(reader, default_source)
+    except csv.Error as exc:  # malformed CSV (e.g. a field over the csv module's size limit)
+        raise CsvFormatError(f"malformed CSV: {exc}") from exc
 
 
 class CsvConnector(Connector):
