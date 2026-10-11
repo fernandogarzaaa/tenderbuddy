@@ -1,16 +1,75 @@
 name: ci
 
-on: [push, pull_request]
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+permissions:
+  contents: read
 
 jobs:
-  test:
+  lint:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v7
-      - uses: actions/setup-python@v7
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
         with:
           python-version: "3.12"
-      - run: pip install -r requirements.txt
-      - run: ruff check app
-      - run: python -m pytest -q
-      - run: docker build -t ci-test .
+      - run: pip install -e ".[dev]"
+      - run: ruff check src tests
+      - run: mypy
+
+  test:
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        python-version: ["3.11", "3.12", "3.13"]
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: ${{ matrix.python-version }}
+      - run: pip install -e ".[dev]"
+      - run: pytest --cov=tenderbuddy --cov-report=term
+
+  postgres:
+    runs-on: ubuntu-latest
+    services:
+      postgres:
+        image: postgres:16-alpine
+        env:
+          POSTGRES_USER: tb
+          POSTGRES_PASSWORD: tb
+          POSTGRES_DB: tb
+        ports: ["5432:5432"]
+        options: >-
+          --health-cmd "pg_isready -U tb" --health-interval 5s --health-timeout 5s --health-retries 10
+    env:
+      TEST_POSTGRES_URL: postgresql+psycopg://tb:tb@localhost:5432/tb
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - run: pip install -e ".[dev,postgres]"
+      - run: pytest tests/test_postgres.py -v
+
+  docker:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - run: docker build -t tenderbuddy:ci .
+      - name: Smoke test the image
+        run: |
+          docker run -d --name tb -p 8004:8004 \
+            -e SECRET_KEY=ci-secret-key-0123456789abcdefghijklmnop \
+            -e ADMIN_PASSWORD=ci-admin-password-123 tenderbuddy:ci
+          for i in $(seq 1 30); do
+            if curl -fsS http://127.0.0.1:8004/readyz; then break; fi
+            sleep 2
+          done
+          docker logs tb | tail -20
+          curl -fsS http://127.0.0.1:8004/readyz
+          test "$(curl -s -o /dev/null -w '%{http_code}' http://127.0.0.1:8004/login)" = "200"

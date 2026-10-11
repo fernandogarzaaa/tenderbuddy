@@ -1,33 +1,37 @@
+# Production-style stack: app + PostgreSQL.
+#   cp .env.example .env   # set SECRET_KEY, ADMIN_PASSWORD, POSTGRES_PASSWORD, APP_ENV=production
+#   docker compose up -d --build
 services:
   db:
-    image: pgvector/pgvector:0.8.0-pg16
+    image: postgres:16-alpine
     environment:
-      POSTGRES_USER: clusterx
-      POSTGRES_PASSWORD: clusterx
-      POSTGRES_DB: clusterx
+      POSTGRES_USER: tenderbuddy
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:?set POSTGRES_PASSWORD in .env}
+      POSTGRES_DB: tenderbuddy
     volumes:
       - pgdata:/var/lib/postgresql/data
     healthcheck:
-      test: ["CMD-SHELL", "pg_isready -U clusterx"]
+      test: ["CMD-SHELL", "pg_isready -U tenderbuddy"]
       interval: 5s
       timeout: 5s
       retries: 10
+    restart: unless-stopped
 
-  api:
+  app:
     build: .
-    ports:
-      - "${PORT:-8004}:${PORT:-8004}"
-    env_file:
-      - .env
+    env_file: .env
     environment:
-      DATABASE_URL: postgresql+psycopg2://clusterx:clusterx@db:5432/clusterx
-      PORT: ${PORT:-8004}
-      SEED_ON_STARTUP: "1"
+      DATABASE_URL: postgresql+psycopg://tenderbuddy:${POSTGRES_PASSWORD}@db:5432/tenderbuddy
+      DATA_DIR: /data
+    ports:
+      - "${PORT:-8004}:8004"
     volumes:
-      - ./data:/srv/app/data
+      - appdata:/data
     depends_on:
       db:
         condition: service_healthy
+    restart: unless-stopped
 
 volumes:
   pgdata:
+  appdata:

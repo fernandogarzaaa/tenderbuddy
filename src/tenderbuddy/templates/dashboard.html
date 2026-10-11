@@ -1,0 +1,44 @@
+{% extends "base.html" %}
+{% block title %}Overview{% endblock %}
+{% block content %}
+<h1 class="text-2xl font-bold mb-1">Overview</h1>
+<p class="text-sm text-stone-500 mb-6">Open tenders with deadlines ahead. Match threshold: {{ threshold }}.</p>
+{% if profile_incomplete %}
+<div class="bg-amber-50 border border-amber-200 rounded-xl p-4 mb-6 text-sm text-amber-900">
+  Your company profile is empty, so match scores are not meaningful yet. <a class="font-semibold underline" href="/profile">Complete the profile</a>.
+</div>
+{% endif %}
+<div class="grid grid-cols-2 lg:grid-cols-4 gap-4 mb-6">
+  <div class="bg-white rounded-xl border border-stone-200 p-5"><div class="text-xs uppercase tracking-wide text-stone-500">Open tenders</div><div class="text-3xl font-bold mt-1">{{ open_count }}</div></div>
+  <div class="bg-white rounded-xl border border-stone-200 p-5"><div class="text-xs uppercase tracking-wide text-stone-500">Matched ({{ threshold }}+)</div><div class="text-3xl font-bold mt-1 text-green-700">{{ matched_count }}</div></div>
+  <div class="bg-white rounded-xl border border-stone-200 p-5"><div class="text-xs uppercase tracking-wide text-stone-500">Avg match score</div><div class="text-3xl font-bold mt-1">{{ avg_score }}</div></div>
+  <div class="bg-white rounded-xl border border-stone-200 p-5"><div class="text-xs uppercase tracking-wide text-stone-500">Deadlines this week</div><div class="text-3xl font-bold mt-1 {% if alerts %}text-red-600{% endif %}">{{ alerts|length }}</div></div>
+</div>
+<div class="grid lg:grid-cols-2 gap-4 mb-6">
+  <div class="bg-white rounded-xl border border-stone-200 p-5">
+    <h2 class="font-semibold mb-3">Best matches</h2>
+    {% for t, s in top %}
+    <a href="/tenders/{{ t.id }}" class="flex items-center justify-between py-2 border-b border-stone-100 last:border-0 hover:text-orange-600">
+      <span class="truncate pr-3">{{ t.title }}</span><span class="shrink-0 text-xs font-semibold bg-green-100 text-green-800 rounded px-2 py-1">{{ s }}</span>
+    </a>
+    {% else %}<p class="text-sm text-stone-500">No open tenders reach the threshold yet. Sync sources or adjust your profile.</p>{% endfor %}
+  </div>
+  <div class="bg-white rounded-xl border border-stone-200 p-5">
+    <h2 class="font-semibold mb-3">Upcoming deadlines (7 days)</h2>
+    {% for t in alerts %}
+    <a href="/tenders/{{ t.id }}" class="flex items-center justify-between py-2 border-b border-stone-100 last:border-0 hover:text-orange-600">
+      <span class="truncate pr-3">{{ t.title }}</span><span class="shrink-0 text-sm text-red-700">{{ t.deadline|dt }} ({{ days_left(t.deadline) }}d)</span>
+    </a>
+    {% else %}<p class="text-sm text-stone-500">Nothing due this week.</p>{% endfor %}
+  </div>
+</div>
+<div class="grid lg:grid-cols-2 gap-4">
+  <div class="bg-white rounded-xl border border-stone-200 p-5"><h2 class="font-semibold mb-3">Tenders by source</h2><canvas id="sourceChart" height="180"></canvas></div>
+  <div class="bg-white rounded-xl border border-stone-200 p-5"><h2 class="font-semibold mb-3">Tenders published by month</h2><canvas id="monthChart" height="180"></canvas></div>
+</div>
+<script type="application/json" id="chart-data">{{ chart|tojson }}</script>
+{% endblock %}
+{% block scripts %}
+<script src="/static/js/chart.umd.min.js"></script>
+<script src="/static/js/dashboard.js"></script>
+{% endblock %}

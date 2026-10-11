@@ -1,0 +1,128 @@
+{% extends "base.html" %}
+{% block title %}{{ t.title }}{% endblock %}
+{% block content %}
+<div class="flex flex-wrap items-start justify-between gap-4 mb-6">
+  <div class="min-w-0">
+    <a href="/tenders" class="text-sm text-orange-600 hover:underline">&larr; Back to tenders</a>
+    <h1 class="text-2xl font-bold mt-1">{{ t.title }}</h1>
+    <p class="text-sm text-stone-500">{{ t.ref_no }} · {{ t.authority or "Unknown authority" }} · {{ source_label(t.source) }}
+      {% if t.url %} · <a href="{{ t.url }}" target="_blank" rel="noopener noreferrer" class="text-orange-600 hover:underline">Original notice</a>{% endif %}</p>
+  </div>
+  <form method="post" action="/tenders/{{ t.id }}/status" class="flex gap-2 items-center shrink-0">
+    {{ csrf_field }}
+    <select name="status" aria-label="Status" class="border border-stone-300 rounded-lg px-3 py-2 text-sm">
+      {% for s in pipeline %}<option value="{{ s }}" {% if s == t.status %}selected{% endif %}>{{ s }}</option>{% endfor %}
+    </select>
+    <button class="bg-orange-600 text-white rounded-lg px-4 py-2 text-sm">Move status</button>
+  </form>
+</div>
+
+<div class="grid lg:grid-cols-3 gap-4 mb-4">
+  <div class="bg-white rounded-xl border border-stone-200 p-5">
+    <h2 class="font-semibold mb-3">Key facts</h2>
+    <dl class="text-sm space-y-2">
+      <div class="flex justify-between gap-2"><dt class="text-stone-500">Estimated value</dt><dd class="font-medium text-right">{{ t.estimated_value|money(t.currency) }}</dd></div>
+      <div class="flex justify-between gap-2"><dt class="text-stone-500">Bid security</dt><dd class="font-medium text-right">{{ t.bid_security|money(t.currency) }}</dd></div>
+      <div class="flex justify-between gap-2"><dt class="text-stone-500">Published</dt><dd>{{ t.published_at|dt }}</dd></div>
+      <div class="flex justify-between gap-2"><dt class="text-stone-500">Deadline (UTC)</dt><dd class="font-medium {% if days_left(t.deadline) <= 7 %}text-red-600{% endif %}">{{ t.deadline|dt("%d %b %Y %H:%M") }} ({{ days_left(t.deadline) }}d)</dd></div>
+      <div class="flex justify-between gap-2"><dt class="text-stone-500">Category</dt><dd class="text-right">{{ t.category or "—" }}</dd></div>
+      <div class="flex justify-between gap-2"><dt class="text-stone-500">CPV</dt><dd class="text-right">{{ (t.cpv_codes or [])[:4]|join(", ") or "—" }}</dd></div>
+      <div class="flex justify-between gap-2"><dt class="text-stone-500">Location</dt><dd class="text-right">{{ [t.region, t.country]|select|join(", ") or "—" }}</dd></div>
+      <div class="flex justify-between gap-2"><dt class="text-stone-500">Status</dt><dd>{{ t.status }}</dd></div>
+    </dl>
+  </div>
+  <div class="bg-white rounded-xl border border-stone-200 p-5">
+    <div class="flex items-center justify-between mb-1">
+      <h2 class="font-semibold">Eligibility match</h2>
+      <span class="text-2xl font-bold {% if match.score >= threshold %}text-green-700{% elif match.score >= 40 %}text-amber-600{% else %}text-stone-500{% endif %}">{{ match.score }}</span>
+    </div>
+    <p class="text-xs text-stone-500 mb-3">Score out of 100, weighted per criterion. <a class="underline" href="/profile">Edit profile</a></p>
+    <div class="space-y-3">
+      {% for c in match.breakdown %}
+      <div>
+        <div class="flex justify-between text-sm mb-1"><span class="font-medium">{{ c.label }}</span>
+          <span class="text-xs font-semibold {% if c.status == 'met' %}text-green-700{% elif c.status in ('partial', 'unknown') %}text-amber-600{% else %}text-red-600{% endif %}">{{ c.points }}/{{ c.weight }} {{ c.status }}</span></div>
+        <div class="h-2 bg-stone-100 rounded-full overflow-hidden"><div class="h-full rounded-full {% if c.status == 'met' %}bg-green-500 w-full{% elif c.points == 0 %}bg-red-400 w-0{% elif c.points * 2 >= c.weight %}bg-amber-400 w-2/3{% else %}bg-amber-400 w-1/3{% endif %}"></div></div>
+        <div class="text-xs text-stone-500 mt-1">Required: {{ c.required }} · Yours: {{ c.actual }}</div>
+      </div>
+      {% endfor %}
+    </div>
+  </div>
+  <div class="bg-white rounded-xl border border-stone-200 p-5">
+    <h2 class="font-semibold mb-3">Documents</h2>
+    <div class="space-y-2 mb-4">
+      {% for d in t.documents %}
+      <a href="/documents/{{ d.id }}" class="flex items-center justify-between text-sm bg-stone-50 rounded-lg px-3 py-2 hover:bg-stone-100">
+        <span class="font-medium truncate">{{ d.filename }}</span><span class="text-xs text-stone-500 shrink-0 ml-2">{{ d.kind }}</span></a>
+      {% else %}<p class="text-sm text-stone-500">No documents uploaded yet.</p>{% endfor %}
+    </div>
+    <form method="post" action="/tenders/{{ t.id }}/documents" enctype="multipart/form-data" class="space-y-2">
+      {{ csrf_field }}
+      <select name="kind" aria-label="Document kind" class="w-full border border-stone-300 rounded-lg px-3 py-2 text-sm">{% for k in doc_kinds %}<option>{{ k }}</option>{% endfor %}</select>
+      <input type="file" name="file" accept=".pdf,application/pdf" required aria-label="PDF file" class="text-sm w-full">
+      <button class="w-full bg-stone-900 text-white rounded-lg px-4 py-2 text-sm">Upload and analyse PDF</button>
+      <p class="text-xs text-stone-400">PDF up to {{ max_upload_mb }} MB. Requirements, dates and risk clauses are extracted automatically.</p>
+    </form>
+  </div>
+</div>
+
+<div class="grid lg:grid-cols-3 gap-4 mb-4">
+  <div class="lg:col-span-2 bg-white rounded-xl border border-stone-200 p-5">
+    <h2 class="font-semibold mb-2">Description</h2>
+    <div class="text-sm text-stone-700 max-h-72 overflow-y-auto">{% if t.description %}{{ t.description|nl2br }}{% else %}No description provided.{% endif %}</div>
+  </div>
+  <div class="bg-white rounded-xl border border-stone-200 p-5">
+    <div class="flex items-center justify-between mb-2"><h2 class="font-semibold">AI summary</h2>
+      <span class="text-[10px] uppercase text-stone-400">{{ "LLM" if llm_mode == "openai" else "offline" }}</span></div>
+    {% if t.ai_summary %}<p class="text-sm text-stone-700 mb-3">{{ t.ai_summary }}</p>{% endif %}
+    <form method="post" action="/tenders/{{ t.id }}/summary">{{ csrf_field }}<button class="bg-stone-900 text-white rounded-lg px-4 py-2 text-sm w-full">{{ "Regenerate" if t.ai_summary else "Generate" }} summary</button></form>
+    <hr class="my-4 border-stone-200">
+    <h2 class="font-semibold mb-2">Bid drafts</h2>
+    {% for d in t.drafts %}
+    <a href="/drafts/{{ d.id }}" class="block text-sm py-1 hover:text-orange-600">Draft #{{ d.id }} · {{ d.created_at|dt("%d %b %H:%M") }} <span class="text-xs text-stone-400">({{ d.generator }})</span></a>
+    {% else %}<p class="text-sm text-stone-500 mb-2">No drafts yet.</p>{% endfor %}
+    <form method="post" action="/tenders/{{ t.id }}/drafts" class="mt-2">{{ csrf_field }}<button class="bg-orange-600 text-white rounded-lg px-4 py-2 text-sm w-full">Generate bid draft</button></form>
+  </div>
+</div>
+
+<div id="checklists" class="grid lg:grid-cols-2 gap-4 mb-4">
+  {% for title, items, kind, empty in [("Requirements checklist", reqs, "requirement", "No requirements yet. Upload the tender document to extract them, or add manually."), ("Document checklist", docs_check, "document", "No document items yet.")] %}
+  <div class="bg-white rounded-xl border border-stone-200 p-5">
+    <h2 class="font-semibold mb-3">{{ title }} <span class="text-xs text-stone-400 font-normal">{{ items|selectattr("is_met")|list|length }}/{{ items|length }} done</span></h2>
+    <div class="space-y-2 mb-4">
+      {% for r in items %}
+      <div class="flex items-start gap-2 text-sm">
+        <form method="post" action="/requirements/{{ r.id }}/toggle">{{ csrf_field }}<button aria-label="Toggle" class="mt-0.5 w-5 h-5 rounded border {% if r.is_met %}bg-green-500 border-green-500 text-white{% else %}border-stone-300{% endif %} shrink-0 text-xs">{% if r.is_met %}✓{% endif %}</button></form>
+        <span class="flex-1 {% if r.is_met %}line-through text-stone-400{% endif %}">{{ r.text }}</span>
+        {% if r.auto %}<span class="text-[10px] uppercase text-stone-400 shrink-0">auto</span>{% endif %}
+        <form method="post" action="/requirements/{{ r.id }}/delete">{{ csrf_field }}<button aria-label="Delete" class="text-stone-400 hover:text-red-600 text-xs">✕</button></form>
+      </div>
+      {% else %}<p class="text-sm text-stone-500">{{ empty }}</p>{% endfor %}
+    </div>
+    <form method="post" action="/tenders/{{ t.id }}/requirements" class="flex gap-2">
+      {{ csrf_field }}<input type="hidden" name="kind" value="{{ kind }}">
+      <input name="text" placeholder="Add item" required maxlength="2000" aria-label="New item" class="flex-1 border border-stone-300 rounded-lg px-3 py-2 text-sm">
+      <button class="bg-stone-900 text-white rounded-lg px-4 py-2 text-sm">Add</button>
+    </form>
+  </div>
+  {% endfor %}
+</div>
+
+<div id="notes" class="bg-white rounded-xl border border-stone-200 p-5 mb-4">
+  <h2 class="font-semibold mb-3">Bid notes</h2>
+  <form method="post" action="/tenders/{{ t.id }}/notes" class="flex gap-2 mb-4">
+    {{ csrf_field }}
+    <input name="text" placeholder="Add a note" required maxlength="5000" aria-label="New note" class="flex-1 border border-stone-300 rounded-lg px-3 py-2 text-sm">
+    <button class="bg-stone-900 text-white rounded-lg px-4 py-2 text-sm">Add note</button>
+  </form>
+  <div class="space-y-2">
+    {% for n in t.notes %}
+    <div class="text-sm bg-stone-50 rounded-lg px-3 py-2 {% if n.text.startswith('RISK') %}border-l-4 border-red-400{% endif %}"><p>{{ n.text }}</p><p class="text-xs text-stone-400 mt-1">{{ n.created_at|dt("%d %b %Y %H:%M") }} UTC</p></div>
+    {% else %}<p class="text-sm text-stone-500">No notes yet.</p>{% endfor %}
+  </div>
+</div>
+
+{% if user.role == "admin" %}
+<form method="post" action="/tenders/{{ t.id }}/delete" class="text-right">{{ csrf_field }}<button class="text-xs text-red-600 hover:underline">Delete this tender</button></form>
+{% endif %}
+{% endblock %}

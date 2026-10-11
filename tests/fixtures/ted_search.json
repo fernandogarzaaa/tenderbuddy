@@ -1,0 +1,400 @@
+{
+ "notices": [
+  {
+   "place-of-performance": [
+    "IE061",
+    "IRL",
+    "GBR",
+    "IE061",
+    "IE061",
+    "IE061",
+    "IEZZZ",
+    "IE061",
+    "IRL",
+    "GBR",
+    "IRL",
+    "IRL",
+    "IRL",
+    "GBR",
+    "IRL"
+   ],
+   "title-proc": {
+    "eng": "The MaresConnect 750MW HVDC Interconnector System"
+   },
+   "notice-type": "cn-standard",
+   "publication-number": "681481-2026",
+   "classification-cpv": [
+    "45231400",
+    "45232221",
+    "45232220",
+    "45314310",
+    "45314310",
+    "31170000",
+    "45251110",
+    "31214000",
+    "45232221",
+    "31170000",
+    "31682540",
+    "31320000",
+    "31320000"
+   ],
+   "buyer-name": {
+    "eng": [
+     "MaresConnect Limited (MCL)"
+    ]
+   },
+   "publication-date": "2026-10-05+02:00",
+   "links": {
+    "xml": {
+     "MUL": "https://ted.europa.eu/en/notice/681481-2026/xml"
+    },
+    "pdf": {
+     "ENG": "https://ted.europa.eu/en/notice/681481-2026/pdf"
+    },
+    "pdfs": {
+     "ENG": "https://ted.europa.eu/en/notice/681481-2026/pdfs"
+    },
+    "html": {
+     "ENG": "https://ted.europa.eu/en/notice/-/detail/681481-2026"
+    },
+    "htmlDirect": {
+     "ENG": "https://ted.europa.eu/en/notice/681481-2026/html"
+    }
+   },
+   "buyer-country": [
+    "IRL"
+   ],
+   "notice-title": {
+    "eng": "Ireland – Construction work for electricity power lines – The MaresConnect 750MW HVDC Interconnector System"
+   },
+   "deadline-receipt-request-date-lot": [
+    "2026-10-31Z",
+    "2026-10-31Z",
+    "2026-10-31Z",
+    "2026-10-31Z"
+   ],
+   "description-proc": {
+    "eng": "The MaresConnect Project is a proposed 750 MW, 320 kV High Voltage Direct Current (HVDC) electricity interconnector linking Denbighshire, Wales and North County Dublin, Ireland. Developed by MaresConnect Limited, a joint venture between Foresight Group Holdings Ltd and Etchea Energy Nominees Ltd, the project will transmit electricity via approximately 240 km of subsea and underground cables between new converter stations on each side. It aims to enhance security of supply, market integration, and renewable energy utilisation between the Irish and GB grids. MaresConnect shall utilise Voltage Source Converter (VSC) technology and the configuration shall be a Symmetrical Monopole. The rated DC voltage shall be +/-320 kV. The link shall be bi-directional and shall have a rated power (receiving end) of 750 MW. The project is being procured as separate EPC (Turnkey) contracts, divided into four lots: LOT 1A: EPC for two HVDC Converter Stations; LOT 1B: EPC for one Irish 400kV AC Tail Substation; LOT 2A: EPC for the HVDC subsea and underground cable system, and for the HVAC underground cable system in Wales (Bodelwyddan); LOT 2B: EPC for the supply and installation of HVAC cable system in Ireland (Dublin). The contract model for the lots will be amended FIDIC Conditions of Contract for EPC/Turnkey Projects (Silver Book). MaresConnect has conducted Preliminary Market Engagement prior to publication of this Contract Notice and encourages further collaboration between OEMs and Construction Contractors to establish bidding arrangements in time for the next step of the Procurement Process (notably the Pre-Qualification Questionnaire)."
+   }
+  },
+  {
+   "place-of-performance": [
+    "IE061",
+    "IRL",
+    "IE061",
+    "IRL"
+   ],
+   "title-proc": {
+    "eng": "Sport Ireland Minor Capital Works Multiparty Framework - Call off Competition for Lot 2 Lot 2 Civil Engineering Works"
+   },
+   "notice-type": "cn-standard",
+   "publication-number": "681579-2026",
+   "estimated-value-lot": [
+    "1500000"
+   ],
+   "estimated-value-cur-lot": [
+    "EUR"
+   ],
+   "buyer-country": [
+    "IRL"
+   ],
+   "classification-cpv": [
+    "45200000",
+    "45220000",
+    "45210000",
+    "45200000",
+    "45220000",
+    "45210000"
+   ],
+   "buyer-name": {
+    "eng": [
+     "Sport Ireland"
+    ]
+   },
+   "publication-date": "2026-10-05+02:00",
+   "links": {
+    "xml": {
+     "MUL": "https://ted.europa.eu/en/notice/681579-2026/xml"
+    },
+    "pdf": {
+     "ENG": "https://ted.europa.eu/en/notice/681579-2026/pdf"
+    },
+    "pdfs": {
+     "ENG": "https://ted.europa.eu/en/notice/681579-2026/pdfs"
+    },
+    "html": {
+     "ENG": "https://ted.europa.eu/en/notice/-/detail/681579-2026"
+    },
+    "htmlDirect": {
+     "ENG": "https://ted.europa.eu/en/notice/681579-2026/html"
+    }
+   },
+   "notice-title": {
+    "eng": "Ireland – Works for complete or part construction and civil engineering work – Sport Ireland Minor Capital Works Multiparty Framework - Call off Competition for Lot 2 Lot 2 Civil Engineering Works"
+   },
+   "deadline-receipt-request-date-lot": [
+    "2026-10-28+01:00"
+   ],
+   "description-proc": {
+    "eng": "This is a call off Competition for the Sport Ireland Minor Capital Works Multiparty Framework - Lot 2. The project comprises the construction of a new pedestrian and cyclist gateway connection to the Sport Ireland Campus via the Tolka Gateway route. The works include upgrades to existing pathways, installation of underground utilities, drainage infrastructure, public lighting, CCTV, retaining structures, site access works and associated civil and electrical engineering works. The Works are to be undertaken within an operational campus environment and require careful coordination of access, logistics and stakeholder interfaces."
+   }
+  },
+  {
+   "place-of-performance": [
+    "MT001",
+    "MLT",
+    "MT001",
+    "MLT"
+   ],
+   "title-proc": {
+    "eng": "CT2280/2026 - FRAMEWORK CONTRACT FOR THE SUPPLY OF REPERFUSION CATHETER AND ASPIRATION TUBING FOR STROKE"
+   },
+   "deadline-receipt-tender-date-lot": [
+    "2026-11-12+02:00"
+   ],
+   "notice-type": "cn-standard",
+   "publication-number": "681657-2026",
+   "estimated-value-lot": [
+    "500267"
+   ],
+   "estimated-value-cur-lot": [
+    "EUR"
+   ],
+   "buyer-country": [
+    "MLT"
+   ],
+   "deadline-receipt-tender-time-lot": [
+    "09:30:00+02:00"
+   ],
+   "classification-cpv": [
+    "33190000",
+    "33190000"
+   ],
+   "buyer-name": {
+    "eng": [
+     "Department of Contracts"
+    ]
+   },
+   "publication-date": "2026-10-05+02:00",
+   "links": {
+    "xml": {
+     "MUL": "https://ted.europa.eu/en/notice/681657-2026/xml"
+    },
+    "pdf": {
+     "ENG": "https://ted.europa.eu/en/notice/681657-2026/pdf"
+    },
+    "pdfs": {
+     "ENG": "https://ted.europa.eu/en/notice/681657-2026/pdfs"
+    },
+    "html": {
+     "ENG": "https://ted.europa.eu/en/notice/-/detail/681657-2026"
+    },
+    "htmlDirect": {
+     "ENG": "https://ted.europa.eu/en/notice/681657-2026/html"
+    }
+   },
+   "notice-title": {
+    "eng": "Malta – Miscellaneous medical devices and products – CT2280/2026 - FRAMEWORK CONTRACT FOR THE SUPPLY OF REPERFUSION CATHETER AND ASPIRATION TUBING FOR STROKE"
+   },
+   "description-proc": {
+    "eng": "CT2280/2026 - FRAMEWORK CONTRACT FOR THE SUPPLY OF REPERFUSION CATHETER AND ASPIRATION TUBING FOR STROKE"
+   }
+  },
+  {
+   "place-of-performance": [
+    "MT001",
+    "MLT",
+    "MT001",
+    "MLT"
+   ],
+   "title-proc": {
+    "eng": "WSC/T/070/2026 - DESIGN, SUPPLY, INSTALL, COMMISSION AND HAND-OVER OF NEW SWRO PLANT “D” AT PEMBROKE RO PLANT USING ENVIRONMENTALLY FRIENDLY MEASURES AND FIDIC CONDITIONS FOR THE WATER SERVICES CORPORATION"
+   },
+   "deadline-receipt-tender-date-lot": [
+    "2026-11-12+02:00"
+   ],
+   "notice-type": "cn-standard",
+   "publication-number": "681719-2026",
+   "estimated-value-lot": [
+    "10200000"
+   ],
+   "estimated-value-cur-lot": [
+    "EUR"
+   ],
+   "buyer-country": [
+    "MLT"
+   ],
+   "deadline-receipt-tender-time-lot": [
+    "09:30:00+02:00"
+   ],
+   "classification-cpv": [
+    "42912340",
+    "42912350",
+    "42912340",
+    "42912350"
+   ],
+   "buyer-name": {
+    "eng": [
+     "Water Services Corporation"
+    ]
+   },
+   "publication-date": "2026-10-05+02:00",
+   "links": {
+    "xml": {
+     "MUL": "https://ted.europa.eu/en/notice/681719-2026/xml"
+    },
+    "pdf": {
+     "ENG": "https://ted.europa.eu/en/notice/681719-2026/pdf"
+    },
+    "pdfs": {
+     "ENG": "https://ted.europa.eu/en/notice/681719-2026/pdfs"
+    },
+    "html": {
+     "ENG": "https://ted.europa.eu/en/notice/-/detail/681719-2026"
+    },
+    "htmlDirect": {
+     "ENG": "https://ted.europa.eu/en/notice/681719-2026/html"
+    }
+   },
+   "notice-title": {
+    "eng": "Malta – Desalination apparatus – WSC/T/070/2026 - DESIGN, SUPPLY, INSTALL, COMMISSION AND HAND-OVER OF NEW SWRO PLANT “D” AT PEMBROKE RO PLANT USING ENVIRONMENTALLY FRIENDLY MEASURES AND FIDIC CONDITIONS FOR THE WATER SERVICES CORPORATION"
+   },
+   "description-proc": {
+    "eng": "The project scope is to issue an EU funded tender for the design, supply, install, commission and hand-over of a SWRO Plant located within the existing Pembroke RO Plant at Pembroke, Malta. The Plant’s nominal capacity shall be 11,200 m3/day with a potential maximum capacity of at least 13,000 m3/day produced from two (2) independent and identical RO systems. During installation, testing and up to the commissioning of the new plant, the existing SWRO plant and its’ ancillary equipment shall remain in operation, and production shall not be jeopardized. The Contractor/s shall be responsible for all mechanical and electrical works to construct this plant to the specified capacities."
+   }
+  },
+  {
+   "place-of-performance": [
+    "IE053",
+    "IRL",
+    "IE053",
+    "IRL"
+   ],
+   "title-proc": {
+    "eng": "BE3963F - Catering Services Concession - University of Limerick (UL)"
+   },
+   "deadline-receipt-tender-date-lot": [
+    "2026-11-06+01:00"
+   ],
+   "notice-type": "cn-standard",
+   "publication-number": "681929-2026",
+   "estimated-value-lot": [
+    "4900000"
+   ],
+   "estimated-value-cur-lot": [
+    "EUR"
+   ],
+   "buyer-country": [
+    "IRL"
+   ],
+   "deadline-receipt-tender-time-lot": [
+    "14:00:00+01:00"
+   ],
+   "classification-cpv": [
+    "55300000",
+    "55520000",
+    "55500000",
+    "55524000",
+    "55300000",
+    "55520000",
+    "55500000",
+    "55524000"
+   ],
+   "buyer-name": {
+    "eng": [
+     "Education Procurement Service (EPS)"
+    ]
+   },
+   "publication-date": "2026-10-05+02:00",
+   "links": {
+    "xml": {
+     "MUL": "https://ted.europa.eu/en/notice/681929-2026/xml"
+    },
+    "pdf": {
+     "ENG": "https://ted.europa.eu/en/notice/681929-2026/pdf"
+    },
+    "pdfs": {
+     "ENG": "https://ted.europa.eu/en/notice/681929-2026/pdfs"
+    },
+    "html": {
+     "ENG": "https://ted.europa.eu/en/notice/-/detail/681929-2026"
+    },
+    "htmlDirect": {
+     "ENG": "https://ted.europa.eu/en/notice/681929-2026/html"
+    }
+   },
+   "notice-title": {
+    "eng": "Ireland – Restaurant and food-serving services – BE3963F - Catering Services Concession - University of Limerick (UL)"
+   },
+   "description-proc": {
+    "eng": "The Concessionaire will be appointed under a single-party framework agreement and will be responsible for the operation, management and development of the Plaza Café, the University’s Café located in the Glucksman Library Building, together with the provision of associated hospitality catering services. The Concessionaire shall operate the service in accordance with inclusive and supported employment, environmental sustainability and community engagement, while assuming the commercial risk of the operation and complying with all contractual, legislative and University policy requirements."
+   }
+  },
+  {
+   "place-of-performance": [
+    "IE061",
+    "IRL",
+    "IE061",
+    "IRL"
+   ],
+   "title-proc": {
+    "eng": "CFT 4012 – MPFA for Signage Design, and Procurement of signage manufacture and installation with an initial contract at County Hall and South Dublin County Council Libraries"
+   },
+   "deadline-receipt-tender-date-lot": [
+    "2026-11-04+01:00"
+   ],
+   "notice-type": "cn-standard",
+   "publication-number": "682006-2026",
+   "estimated-value-lot": [
+    "550000"
+   ],
+   "estimated-value-cur-lot": [
+    "EUR"
+   ],
+   "buyer-country": [
+    "IRL"
+   ],
+   "deadline-receipt-tender-time-lot": [
+    "16:00:00+01:00"
+   ],
+   "classification-cpv": [
+    "79415200",
+    "34992300",
+    "79415200",
+    "34992300"
+   ],
+   "buyer-name": {
+    "eng": [
+     "South Dublin County Council"
+    ]
+   },
+   "publication-date": "2026-10-05+02:00",
+   "links": {
+    "xml": {
+     "MUL": "https://ted.europa.eu/en/notice/682006-2026/xml"
+    },
+    "pdf": {
+     "ENG": "https://ted.europa.eu/en/notice/682006-2026/pdf"
+    },
+    "pdfs": {
+     "ENG": "https://ted.europa.eu/en/notice/682006-2026/pdfs"
+    },
+    "html": {
+     "ENG": "https://ted.europa.eu/en/notice/-/detail/682006-2026"
+    },
+    "htmlDirect": {
+     "ENG": "https://ted.europa.eu/en/notice/682006-2026/html"
+    }
+   },
+   "notice-title": {
+    "eng": "Ireland – Design consultancy services – CFT 4012 – MPFA for Signage Design, and Procurement of signage manufacture and installation with an initial contract at County Hall and South Dublin County Council Libraries"
+   },
+   "description-proc": {
+    "eng": "Multiparty Framework for Signage Design, and Procurement of signage manufacture and installation with an initial contract for signage design, and procurement of signage manufacture and installation at County Hall and South Dublin County Council Libraries. The initial contract would be for 15 signs across County Building and South Dublin County Council Libraries."
+   }
+  }
+ ],
+ "totalNoticeCount": 120,
+ "iterationNextToken": null,
+ "timedOut": false
+}

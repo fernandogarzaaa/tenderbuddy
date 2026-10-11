@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+{% block title %}Bid draft #{{ d.id }}{% endblock %}
+{% block content %}
+<a href="/tenders/{{ t.id }}" class="text-sm text-orange-600 hover:underline">&larr; Back to {{ t.title }}</a>
+<div class="flex flex-wrap items-center justify-between gap-3 mt-1 mb-4">
+  <h1 class="text-2xl font-bold">Bid draft #{{ d.id }}</h1>
+  <div class="flex gap-2 text-sm">
+    <a href="/drafts/{{ d.id }}/download.md" class="bg-white border border-stone-300 rounded-lg px-4 py-2">Download Markdown</a>
+    <a href="/drafts/{{ d.id }}/download.pdf" class="bg-orange-600 text-white rounded-lg px-4 py-2">Download PDF</a>
+  </div>
+</div>
+<p class="text-xs text-stone-500 mb-3">Generated {{ d.created_at|dt("%d %b %Y %H:%M") }} UTC by {{ d.generator }}. Review every statement before submitting.</p>
+<pre class="bg-white rounded-xl border border-stone-200 p-5 text-sm whitespace-pre-wrap font-mono">{{ d.content }}</pre>
+{% endblock %}

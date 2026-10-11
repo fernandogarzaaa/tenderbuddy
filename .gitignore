@@ -12,14 +12,18 @@ venv/
 .ruff_cache/
 .mypy_cache/
 .coverage
+coverage.xml
 htmlcov/
+.testteeth/
+testteeth-report.json
 
 # Local environment / secrets
 .env
 .env.*
 !.env.example
 
-# Local databases (default DATABASE_URL is sqlite:///./data/app.db)
+# Runtime data (databases, uploads, staged CSVs)
+data/
 *.db
 *.sqlite
 *.sqlite3
