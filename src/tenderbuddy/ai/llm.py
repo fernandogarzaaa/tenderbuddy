@@ -26,8 +26,12 @@ RETRY_STATUS = frozenset({429, 500, 502, 503, 504})
 _SENT_RE = re.compile(r"(?<=[.!?])\s+")
 _TOKEN_RE = re.compile(r"[a-z0-9]+")
 STOPWORDS = frozenset(
-    "a an and are as at be by for from has have in is it of on or that the this to was were will with "
-    "shall must should may been being which who whom whose their its into per all any each".split()
+    [
+        "a", "an", "and", "are", "as", "at", "be", "by", "for", "from", "has", "have", "in", "is", "it", "of",
+        "on", "or", "that", "the", "this", "to", "was", "were", "will", "with", "shall", "must", "should",
+        "may", "been", "being", "which", "who", "whom", "whose", "their", "its", "into", "per", "all", "any",
+        "each",
+    ]
 )
 
 

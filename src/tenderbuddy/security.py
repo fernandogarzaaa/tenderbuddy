@@ -8,7 +8,7 @@ import threading
 import time
 from collections import deque
 from collections.abc import Callable
-from datetime import datetime, timedelta, timezone
+from datetime import UTC, datetime, timedelta
 
 import bcrypt
 import jwt
@@ -41,7 +41,7 @@ def verify_password(password: str, hashed: str) -> bool:
 
 
 def create_access_token(subject: str, secret: str, expires_minutes: int) -> str:
-    now = datetime.now(timezone.utc)
+    now = datetime.now(UTC)
     payload = {"sub": subject, "iat": now, "exp": now + timedelta(minutes=expires_minutes), "type": "access"}
     return jwt.encode(payload, secret, algorithm=ALGORITHM)
 

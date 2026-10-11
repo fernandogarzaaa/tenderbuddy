@@ -10,6 +10,8 @@ Create Date: 2026-10-11
 
 from __future__ import annotations
 
+from typing import Any
+
 import sqlalchemy as sa
 from alembic import op
 
@@ -19,7 +21,7 @@ branch_labels = None
 depends_on = None
 
 
-def _children() -> dict[str, list[sa.Column[object]]]:
+def _children() -> dict[str, list[sa.Column[Any]]]:
     return {
         "tender_documents": [
             sa.Column("filename", sa.String(255), nullable=False),

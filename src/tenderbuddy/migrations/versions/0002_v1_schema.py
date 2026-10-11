@@ -15,6 +15,7 @@ from __future__ import annotations
 
 import json
 import re
+from typing import Any
 
 import sqlalchemy as sa
 from alembic import op
@@ -40,11 +41,11 @@ def _slug(name: str) -> str:
     return re.sub(r"[^a-z0-9_]+", "_", (name or "").strip().lower()).strip("_") or "manual"
 
 
-def _json_col(name: str) -> sa.Column[object]:
+def _json_col(name: str) -> sa.Column[Any]:
     return sa.Column(name, sa.JSON, nullable=False, server_default=sa.text("'[]'"))
 
 
-def _timestamp_col() -> sa.Column[object]:
+def _timestamp_col() -> sa.Column[Any]:
     # SQLite cannot ADD COLUMN with a non-constant default on a populated table, so use a
     # constant and backfill with UPDATE (see _backfill_timestamps).
     return sa.Column("updated_at", sa.DateTime, nullable=False, server_default=sa.text("'1970-01-01 00:00:00'"))
@@ -87,7 +88,7 @@ def _upgrade_tenders(conn: sa.Connection) -> None:
     op.drop_index("ix_tenders_ref_no", table_name="tenders")
     op.execute("ALTER TABLE tenders RENAME COLUMN state TO region")
     op.execute("ALTER TABLE tenders RENAME COLUMN published_date TO published_at")
-    for col in (
+    for new_col in (
         sa.Column("external_id", sa.String(255), nullable=False, server_default=""),
         _json_col("cpv_codes"),
         sa.Column("country", sa.String(64), nullable=False, server_default=""),
@@ -101,7 +102,7 @@ def _upgrade_tenders(conn: sa.Connection) -> None:
         sa.Column("ai_summary", sa.Text, nullable=False, server_default=""),
         _timestamp_col(),
     ):
-        op.add_column("tenders", col)
+        op.add_column("tenders", new_col)
     tenders = sa.table(
         "tenders", sa.column("id", sa.Integer), sa.column("external_id", sa.String), sa.column("source", sa.String),
         sa.column("country", sa.String), sa.column("currency", sa.String), sa.column("estimated_value", sa.Float),
@@ -125,9 +126,9 @@ def _upgrade_tenders(conn: sa.Connection) -> None:
             certs_required=_json_list(row["certs_req_json"]),
         ))
     if conn.dialect.name != "sqlite":  # SQLite does not enforce VARCHAR lengths
-        for col, length in (("title", 1000), ("ref_no", 255), ("authority", 500), ("category", 255),
+        for name, length in (("title", 1000), ("ref_no", 255), ("authority", 500), ("category", 255),
                             ("region", 255)):
-            op.alter_column("tenders", col, type_=sa.String(length), existing_nullable=False)
+            op.alter_column("tenders", name, type_=sa.String(length), existing_nullable=False)
         op.alter_column("tender_documents", "path", type_=sa.String(1024), existing_nullable=False)
     for col in ("est_value_lakh", "emd_lakh", "turnover_req_cr", "exp_req_years", "certs_req_json"):
         op.execute(f"ALTER TABLE tenders DROP COLUMN {col}")

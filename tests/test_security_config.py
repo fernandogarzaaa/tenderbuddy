@@ -1,6 +1,6 @@
 from __future__ import annotations
 
-from datetime import datetime, timedelta, timezone
+from datetime import UTC, datetime, timedelta
 from pathlib import Path
 
 import jwt
@@ -48,7 +48,7 @@ def test_token_roundtrip_and_rejections() -> None:
     assert decode_access_token("garbage", SECRET) is None
     expired = create_access_token("a@b.c", SECRET, -1)
     assert decode_access_token(expired, SECRET) is None
-    exp = datetime.now(timezone.utc) + timedelta(minutes=5)
+    exp = datetime.now(UTC) + timedelta(minutes=5)
     wrong_type = jwt.encode({"sub": "a@b.c", "exp": exp, "type": "refresh"}, SECRET, algorithm=ALGORITHM)
     assert decode_access_token(wrong_type, SECRET) is None
     no_sub = jwt.encode({"exp": exp, "type": "access"}, SECRET, algorithm=ALGORITHM)

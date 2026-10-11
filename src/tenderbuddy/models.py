@@ -2,7 +2,7 @@
 
 from __future__ import annotations
 
-from datetime import datetime, timezone
+from datetime import UTC, datetime
 from typing import Any
 
 from sqlalchemy import JSON, Boolean, DateTime, Float, ForeignKey, Index, Integer, String, Text
@@ -16,7 +16,7 @@ OPEN_STATUSES = ("New", "Reviewing", "Preparing")
 
 def utcnow() -> datetime:
     """Naive UTC timestamp (stored naive for SQLite/Postgres parity)."""
-    return datetime.now(timezone.utc).replace(tzinfo=None)
+    return datetime.now(UTC).replace(tzinfo=None)
 
 
 class User(Base):

@@ -222,7 +222,8 @@ def test_ted_fixture_parsing() -> None:
     assert malta.region == "MT001"
     assert malta.deadline == datetime(2026, 11, 12, 7, 30)  # 09:30 +02:00
     assert malta.currency == "EUR"
-    assert malta.estimated_value and malta.estimated_value > 0
+    assert malta.estimated_value
+    assert malta.estimated_value > 0
     assert malta.url == "https://ted.europa.eu/en/notice/-/detail/681657-2026"
     assert malta.published_at == datetime(2026, 10, 4, 22, 0)
     assert malta.title.startswith("CT2280/2026")

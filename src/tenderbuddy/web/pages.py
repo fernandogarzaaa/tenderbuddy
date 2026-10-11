@@ -113,11 +113,14 @@ def tenders_page(request: Request, db: DbDep, user: PageUser) -> Response:
     qp = request.query_params
     sort = qp.get("sort", "deadline") if qp.get("sort") in SORTS else "deadline"
     status = qp.get("status", "") if qp.get("status") in STATUS_PIPELINE else ""
-    filters = {"q": qp.get("q", "")[:200], "status": status, "source": qp.get("source", "")[:64],
-               "min_score": int_param(qp.get("min_score"), 0, 0, 100), "sort": sort,
-               "open": "0" if qp.get("open") == "0" else "1"}
-    res = list_tenders(db, q=filters["q"], status=status, source=filters["source"], open_only=filters["open"] == "1",
-                       min_score=filters["min_score"], sort=sort, page=int_param(qp.get("page"), 1, 1, 10**6))
+    q = qp.get("q", "")[:200]
+    source = qp.get("source", "")[:64]
+    min_score = int_param(qp.get("min_score"), 0, 0, 100)
+    open_only = qp.get("open") != "0"
+    res = list_tenders(db, q=q, status=status, source=source, open_only=open_only, min_score=min_score, sort=sort,
+                       page=int_param(qp.get("page"), 1, 1, 10**6))
+    filters = {"q": q, "status": status, "source": source, "min_score": str(min_score), "sort": sort,
+               "open": "1" if open_only else "0"}
     sources = sorted(s for (s,) in db.execute(select(models.Tender.source).distinct()))
     return render(request, "tenders.html", user=user, nav="tenders", res=res, filters=filters,
                   query=urlencode(filters), sources=sources, statuses=STATUS_PIPELINE, sorts=SORTS,

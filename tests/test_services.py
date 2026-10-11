@@ -16,8 +16,14 @@ from sqlalchemy.orm import Session
 
 from tenderbuddy import models
 from tenderbuddy.ai import MockLLM
-from tenderbuddy.bidding import UploadRejected, add_document, create_manual_tender, generate_draft, generate_summary, \
-    safe_filename
+from tenderbuddy.bidding import (
+    UploadRejected,
+    add_document,
+    create_manual_tender,
+    generate_draft,
+    generate_summary,
+    safe_filename,
+)
 from tenderbuddy.config import Settings
 from tenderbuddy.connectors import TenderRecord
 from tenderbuddy.db import Base, init_engine
@@ -37,7 +43,6 @@ from tenderbuddy.services import (
 )
 from tenderbuddy.users import UserExists, authenticate, bootstrap_admin, create_user
 from tests.conftest import load_fixture, make_pdf, make_settings, mock_client
-
 
 DEADLINE = utcnow().replace(microsecond=0) + timedelta(days=10)
 

@@ -13,8 +13,8 @@ from typing import Annotated, Literal
 from pydantic import Field, field_validator, model_validator
 from pydantic_settings import BaseSettings, NoDecode, SettingsConfigDict
 
-INSECURE_SECRET = "change-me-in-production"
-INSECURE_ADMIN_PASSWORD = "ChangeMe123!"
+INSECURE_SECRET = "change-me-in-production"  # noqa: S105  (sentinel, rejected in production)
+INSECURE_ADMIN_PASSWORD = "ChangeMe123!"  # noqa: S105  (sentinel, rejected in production)
 KNOWN_CONNECTORS = ("ted", "contracts_finder", "sam_gov", "csv")
 
 CsvList = Annotated[list[str], NoDecode]
@@ -27,10 +27,7 @@ class ConfigError(ValueError):
 def split_csv(value: object) -> list[str]:
     if value is None:
         return []
-    if isinstance(value, (list, tuple)):
-        items = [str(v) for v in value]
-    else:
-        items = str(value).split(",")
+    items = [str(v) for v in value] if isinstance(value, (list, tuple)) else str(value).split(",")
     return [i.strip() for i in items if i.strip()]
 
 

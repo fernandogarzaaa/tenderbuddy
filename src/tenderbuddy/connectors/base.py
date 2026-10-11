@@ -8,7 +8,7 @@ import time
 from abc import ABC, abstractmethod
 from collections.abc import Callable
 from dataclasses import dataclass, field
-from datetime import date, datetime, timedelta, timezone
+from datetime import UTC, date, datetime, timedelta, timezone
 from typing import Any
 
 import httpx
@@ -136,7 +136,7 @@ class Connector(ABC):
 def to_naive_utc(dt: datetime) -> datetime:
     if dt.tzinfo is None:
         return dt
-    return dt.astimezone(timezone.utc).replace(tzinfo=None)
+    return dt.astimezone(UTC).replace(tzinfo=None)
 
 
 _DATE_ONLY = re.compile(r"^(\d{4}-\d{2}-\d{2})(Z|[+-]\d{2}:\d{2})?$")
@@ -160,7 +160,7 @@ def parse_iso_datetime(raw: str | None, *, end_of_day: bool = True) -> datetime 
         except ValueError:
             return None
         offset = m.group(2) or "Z"
-        tz = timezone.utc
+        tz = UTC
         if offset != "Z":
             sign = 1 if offset[0] == "+" else -1
             tz = timezone(sign * timedelta(hours=int(offset[1:3]), minutes=int(offset[4:6])))

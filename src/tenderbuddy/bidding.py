@@ -100,7 +100,8 @@ def add_document(db: Session, settings: Settings, llm: LLMClient, tender: models
     db.commit()
     log.info("document analysed", extra={"tender_id": tender.id, "requirements": created,
                                           "risks": len(analysis["risks"]), "generator": reqs.generator})
-    return DocumentOutcome(doc, created, [dict(r) for r in analysis["risks"]], reqs.generator, bool(text.strip()))
+    risks = [{"type": r["type"], "detail": r["detail"]} for r in analysis["risks"]]
+    return DocumentOutcome(doc, created, risks, reqs.generator, bool(text.strip()))
 
 
 def generate_summary(db: Session, settings: Settings, llm: LLMClient, tender: models.Tender) -> str:
