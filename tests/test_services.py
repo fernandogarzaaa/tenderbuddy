@@ -39,9 +39,11 @@ from tenderbuddy.users import UserExists, authenticate, bootstrap_admin, create_
 from tests.conftest import load_fixture, make_pdf, make_settings, mock_client
 
 
+DEADLINE = utcnow().replace(microsecond=0) + timedelta(days=10)
+
+
 def rec(ext: str = "E1", **kw: Any) -> TenderRecord:
-    base: dict[str, Any] = {"source": "test", "external_id": ext, "title": f"Tender {ext}",
-                            "deadline": utcnow() + timedelta(days=10)}
+    base: dict[str, Any] = {"source": "test", "external_id": ext, "title": f"Tender {ext}", "deadline": DEADLINE}
     base.update(kw)
     return TenderRecord(**base)
 
@@ -312,12 +314,18 @@ def test_demo_seed_idempotent(db: Session) -> None:
 
 # ---------------------------------------------------------------- migrations
 
+def schema_diff(conn: Any) -> list[Any]:
+    """Model-vs-database differences. SQLite ignores VARCHAR lengths, so types are compared elsewhere only."""
+    opts = {"compare_type": conn.dialect.name != "sqlite"}
+    return list(compare_metadata(MigrationContext.configure(conn, opts=opts), Base.metadata))
+
+
 def test_migrated_schema_matches_models(settings: Settings) -> None:
     engine = init_engine(settings.DATABASE_URL)
     assert upgrade(engine) == head_revision() == "0002_v1"
     assert is_up_to_date(engine)
     with engine.connect() as conn:
-        diff = compare_metadata(MigrationContext.configure(conn), Base.metadata)
+        diff = schema_diff(conn)
     assert diff == []
     assert upgrade(engine) == "0002_v1"  # no-op when current
     engine.dispose()
@@ -369,7 +377,7 @@ def test_legacy_beta_database_is_converted(tmp_path: Path) -> None:
         tables = set(inspect(conn).get_table_names())
         assert "source_records" not in tables
         assert {"sources", "bid_drafts"} <= tables
-        diff = compare_metadata(MigrationContext.configure(conn), Base.metadata)
+        diff = schema_diff(conn)
     assert diff == []
     assert current_revision(engine) == "0002_v1"
     engine.dispose()

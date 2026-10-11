@@ -44,14 +44,24 @@ def _json_col(name: str) -> sa.Column[object]:
     return sa.Column(name, sa.JSON, nullable=False, server_default=sa.text("'[]'"))
 
 
+def _timestamp_col() -> sa.Column[object]:
+    # SQLite cannot ADD COLUMN with a non-constant default on a populated table, so use a
+    # constant and backfill with UPDATE (see _backfill_timestamps).
+    return sa.Column("updated_at", sa.DateTime, nullable=False, server_default=sa.text("'1970-01-01 00:00:00'"))
+
+
+def _backfill_timestamps() -> None:
+    op.execute("UPDATE company_profiles SET updated_at = CURRENT_TIMESTAMP")
+    op.execute("UPDATE tenders SET updated_at = created_at")
+
+
 def _upgrade_profiles(conn: sa.Connection) -> None:
     op.add_column("company_profiles", sa.Column("currency", sa.String(3), nullable=False, server_default="EUR"))
     op.add_column("company_profiles", sa.Column("annual_turnover", sa.Float, nullable=False, server_default="0"))
     for col in ("certifications", "categories", "cpv_prefixes", "keywords", "regions"):
         op.add_column("company_profiles", _json_col(col))
     op.add_column("company_profiles", sa.Column("capability_statement", sa.Text, nullable=False, server_default=""))
-    op.add_column("company_profiles", sa.Column("updated_at", sa.DateTime, nullable=False,
-                                                server_default=sa.func.current_timestamp()))
+    op.add_column("company_profiles", _timestamp_col())
     op.execute("ALTER TABLE company_profiles RENAME COLUMN years_exp TO years_experience")
     profiles = sa.table(
         "company_profiles", sa.column("id", sa.Integer), sa.column("currency", sa.String),
@@ -89,7 +99,7 @@ def _upgrade_tenders(conn: sa.Connection) -> None:
         _json_col("certs_required"),
         sa.Column("url", sa.String(1000), nullable=False, server_default=""),
         sa.Column("ai_summary", sa.Text, nullable=False, server_default=""),
-        sa.Column("updated_at", sa.DateTime, nullable=False, server_default=sa.func.current_timestamp()),
+        _timestamp_col(),
     ):
         op.add_column("tenders", col)
     tenders = sa.table(
@@ -133,6 +143,7 @@ def upgrade() -> None:
     op.add_column("users", sa.Column("is_active", sa.Boolean, nullable=False, server_default=sa.true()))
     _upgrade_profiles(conn)
     _upgrade_tenders(conn)
+    _backfill_timestamps()
 
     op.add_column("tender_documents", sa.Column("size_bytes", sa.Integer, nullable=False, server_default="0"))
     for table in ("tender_documents", "requirements", "bid_notes"):
