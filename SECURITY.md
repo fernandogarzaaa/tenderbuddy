@@ -13,8 +13,8 @@ Security fixes go to the latest 1.x release and the `main` branch.
 
 Please **do not** open a public GitHub issue for security problems.
 
-Report privately through GitHub's **Report a vulnerability** button (Security tab, private
-vulnerability reporting) or by email to **fernandogarzaaa@gmail.com**. Include a description,
+Report privately by email to **fernandogarzaaa@gmail.com** (or through GitHub private
+vulnerability reporting in the Security tab, if enabled). Include a description,
 steps to reproduce, and the affected version or commit if you know it.
 
 You can expect an acknowledgement within a few days. Please allow a reasonable window to
