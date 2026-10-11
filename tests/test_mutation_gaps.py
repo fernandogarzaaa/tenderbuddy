@@ -266,3 +266,51 @@ def test_ted_second_page_respects_remaining_quota_and_total(monkeypatch: pytest.
     pages.clear()
     res = TedConnector(api_url="https://ted.test", client=mock_client(handler)).fetch(SINCE, 100)
     assert pages == [1, 2]  # stops when page * page_size reaches the total
+
+
+from tenderbuddy.connectors.contracts_finder import ContractsFinderConnector  # noqa: E402
+from tenderbuddy.connectors.csv_import import row_to_record, slug  # noqa: E402
+
+
+def _release(ocid: str, **tender: object) -> dict[str, object]:
+    return {"ocid": ocid, "tender": {"title": "Roads", "tenderPeriod": {"endDate": "2026-12-01T12:00:00Z"},
+                                     **tender}}
+
+
+def test_descriptions_are_capped_at_20000_chars() -> None:
+    long = "d" * 20001
+    cf = parse_release(_release("ocds-2", description=long))
+    assert cf is not None
+    assert len(cf.description) == 20000
+    csv_rec = row_to_record({"title": "T", "deadline": "2026-12-01", "description": long}, "csv")
+    assert len(csv_rec.description) == 20000
+    ted = parse_notice({"publication-number": "3-2026", "title-proc": {"eng": "Works"},
+                        "deadline-receipt-tender-date-lot": ["2026-11-06Z"], "description-proc": {"eng": long}})
+    assert ted is not None
+    assert len(ted.description) == 20000
+
+
+def test_slug_is_capped_at_64_chars() -> None:
+    assert slug("a" * 70) == "a" * 64
+
+
+def test_contracts_finder_counts_quota_across_pages() -> None:
+    def handler(request: httpx.Request) -> httpx.Response:
+        if "cursor=" in str(request.url):
+            return httpx.Response(200, json={"releases": [_release("p2-a"), _release("p2-b")], "links": {}})
+        return httpx.Response(200, json={"releases": [_release("p1-a"), _release("p1-b")],
+                                         "links": {"next": "https://cf.test/search?cursor=abc"}})
+
+    res = ContractsFinderConnector(api_url="https://cf.test/search", client=mock_client(handler)).fetch(SINCE, 3)
+    assert [r.external_id for r in res.records] == ["p1-a", "p1-b", "p2-a"]
+
+
+def test_contracts_finder_unparseable_release_is_recorded_as_error() -> None:
+    bad = _release("bad-cf", additionalClassifications=5)
+    conn = ContractsFinderConnector(api_url="https://cf.test", client=mock_client(
+        lambda r: httpx.Response(200, json={"releases": [bad], "links": {}})))
+    res = conn.fetch(SINCE, 10)
+    assert res.records == []
+    assert res.skipped == 1
+    assert len(res.errors) == 1
+    assert res.errors[0].startswith("bad-cf: ")
