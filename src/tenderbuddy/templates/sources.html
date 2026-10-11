@@ -1,0 +1,36 @@
+{% extends "base.html" %}
+{% block title %}Sources{% endblock %}
+{% block content %}
+<div class="flex flex-wrap items-center justify-between gap-3 mb-1">
+  <h1 class="text-2xl font-bold">Tender sources</h1>
+  {% if user.role == "admin" %}<form method="post" action="/sources/sync">{{ csrf_field }}<button class="bg-orange-600 text-white rounded-lg px-4 py-2 text-sm">Sync all now</button></form>{% endif %}
+</div>
+<p class="text-sm text-stone-500 mb-6">
+  {% if interval %}Automatic sync every {{ interval }} minutes.{% else %}Automatic sync is off (set SYNC_INTERVAL_MINUTES, or schedule <code>tenderbuddy sync</code>).{% endif %}
+  Enabled connectors come from the <code>CONNECTORS</code> setting.
+</p>
+<div class="grid md:grid-cols-2 xl:grid-cols-4 gap-4">
+  {% for s in sources %}
+  <div class="bg-white rounded-xl border border-stone-200 p-5 flex flex-col">
+    <div class="flex items-center justify-between mb-1">
+      <h2 class="font-semibold text-lg">{{ labels.get(s.name, s.name) }}</h2>
+      <span class="text-xs rounded px-2 py-0.5 {% if s.last_status == 'ok' %}bg-green-100 text-green-800{% elif s.last_status == 'error' %}bg-red-100 text-red-800{% elif s.last_status == 'partial' %}bg-amber-100 text-amber-800{% else %}bg-stone-100 text-stone-600{% endif %}">{{ s.last_status }}</span>
+    </div>
+    <p class="text-sm text-stone-500 mb-2">Last sync: {% if s.last_sync_at %}{{ s.last_sync_at|dt("%d %b %Y %H:%M") }} UTC{% else %}<span class="italic">never</span>{% endif %}</p>
+    {% if s.last_sync_at %}<p class="text-xs text-stone-500 mb-2">{{ s.last_created }} new · {{ s.last_updated }} updated · {{ s.last_skipped }} skipped</p>{% endif %}
+    {% if s.last_error %}<p class="text-xs text-red-700 bg-red-50 rounded p-2 mb-2 break-words">{{ s.last_error }}</p>{% endif %}
+    {% if s.name == "sam_gov" and not sam_key %}<p class="text-xs text-amber-800 bg-amber-50 rounded p-2 mb-2">Needs SAM_API_KEY (free, from your SAM.gov account).</p>{% endif %}
+    {% if s.name == "csv" %}
+    <div class="text-xs mb-2"><div class="font-medium mb-1">Staging folder: <code>{{ staging_dir }}</code></div>
+      {% for f in staged %}<div class="font-mono bg-stone-50 rounded px-2 py-1 mb-1 truncate">{{ f }}</div>{% else %}<p class="text-stone-400">No CSV files staged.</p>{% endfor %}</div>
+    {% endif %}
+    <div class="mt-auto flex gap-2 pt-2">
+      {% if user.role == "admin" and s.name in enabled %}
+      <form method="post" action="/sources/{{ s.name }}/sync" class="flex-1">{{ csrf_field }}<button class="w-full bg-stone-900 text-white rounded-lg px-3 py-2 text-sm" {% if not s.enabled %}disabled{% endif %}>Sync now</button></form>
+      <form method="post" action="/sources/{{ s.name }}/toggle">{{ csrf_field }}<button class="border border-stone-300 rounded-lg px-3 py-2 text-sm">{{ "Pause" if s.enabled else "Resume" }}</button></form>
+      {% elif s.name not in enabled %}<p class="text-xs text-stone-400">Not in CONNECTORS.</p>{% endif %}
+    </div>
+  </div>
+  {% endfor %}
+</div>
+{% endblock %}

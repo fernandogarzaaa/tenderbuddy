@@ -1,0 +1,68 @@
+{% extends "base.html" %}
+{% block title %}Tenders{% endblock %}
+{% block content %}
+<div class="flex flex-wrap items-center justify-between gap-3 mb-4">
+  <div>
+    <h1 class="text-2xl font-bold">Tenders</h1>
+    <p class="text-sm text-stone-500">{{ res.total }} matching · page {{ res.page }} of {{ res.pages }}</p>
+  </div>
+  <a href="/tenders/new" class="bg-stone-900 text-white rounded-lg px-4 py-2 text-sm">Add tender</a>
+</div>
+<form method="get" action="/tenders" class="bg-white rounded-xl border border-stone-200 p-4 mb-4 grid md:grid-cols-6 gap-3 text-sm">
+  <input name="q" value="{{ filters.q }}" placeholder="Search title, ref, authority, text" aria-label="Search" class="md:col-span-2 border border-stone-300 rounded-lg px-3 py-2">
+  <select name="source" aria-label="Source" class="border border-stone-300 rounded-lg px-3 py-2">
+    <option value="">All sources</option>
+    {% for s in sources %}<option value="{{ s }}" {% if s == filters.source %}selected{% endif %}>{{ source_label(s) }}</option>{% endfor %}
+  </select>
+  <select name="status" aria-label="Status" class="border border-stone-300 rounded-lg px-3 py-2">
+    <option value="">Any status</option>
+    {% for s in statuses %}<option value="{{ s }}" {% if s == filters.status %}selected{% endif %}>{{ s }}</option>{% endfor %}
+  </select>
+  <select name="sort" aria-label="Sort" class="border border-stone-300 rounded-lg px-3 py-2">
+    {% for s in sorts %}<option value="{{ s }}" {% if s == filters.sort %}selected{% endif %}>Sort: {{ s }}</option>{% endfor %}
+  </select>
+  <div class="flex gap-2 items-center">
+    <input name="min_score" type="number" min="0" max="100" value="{{ filters.min_score }}" title="Minimum match score" aria-label="Minimum score" class="w-20 border border-stone-300 rounded-lg px-2 py-2">
+    <select name="open" aria-label="Open only" class="border border-stone-300 rounded-lg px-2 py-2"><option value="1" {% if filters.open == "1" %}selected{% endif %}>Open</option><option value="0" {% if filters.open == "0" %}selected{% endif %}>All</option></select>
+    <button class="bg-orange-600 text-white rounded-lg px-3 py-2">Filter</button>
+  </div>
+</form>
+<div class="bg-white rounded-xl border border-stone-200 overflow-x-auto mb-4">
+  <table class="w-full text-sm">
+    <thead class="bg-stone-50 text-left text-xs uppercase text-stone-500">
+      <tr><th class="px-4 py-3">Tender</th><th class="px-4 py-3">Authority</th><th class="px-4 py-3">Value</th><th class="px-4 py-3">Deadline</th><th class="px-4 py-3">Match</th><th class="px-4 py-3">Status</th></tr>
+    </thead>
+    <tbody class="divide-y divide-stone-100">
+      {% for t, score in res.rows %}
+      <tr class="hover:bg-stone-50">
+        <td class="px-4 py-3 max-w-md"><a href="/tenders/{{ t.id }}" class="font-medium hover:text-orange-600">{{ t.title }}</a>
+          <div class="text-xs text-stone-500">{{ t.ref_no }} · {{ source_label(t.source) }}{% if t.country %} · {{ t.country }}{% endif %}</div></td>
+        <td class="px-4 py-3 text-stone-600">{{ t.authority }}</td>
+        <td class="px-4 py-3 whitespace-nowrap">{{ t.estimated_value|money(t.currency) }}</td>
+        <td class="px-4 py-3 whitespace-nowrap {% if days_left(t.deadline) <= 7 %}text-red-600 font-medium{% endif %}">{{ t.deadline|dt }}</td>
+        <td class="px-4 py-3"><span class="inline-block px-2 py-1 rounded text-xs font-semibold {% if score >= threshold %}bg-green-100 text-green-800{% elif score >= 40 %}bg-amber-100 text-amber-800{% else %}bg-stone-100 text-stone-600{% endif %}">{{ score }}</span></td>
+        <td class="px-4 py-3 text-stone-600">{{ t.status }}</td>
+      </tr>
+      {% else %}
+      <tr><td colspan="6" class="px-4 py-8 text-center text-stone-500">No tenders found. Try “All” instead of “Open”, sync a source, or import a CSV.</td></tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</div>
+{% if res.pages > 1 %}
+<div class="flex gap-2 mb-6 text-sm">
+  {% if res.page > 1 %}<a class="px-3 py-1 bg-white border rounded" href="/tenders?{{ query }}&amp;page={{ res.page - 1 }}">&larr; Prev</a>{% endif %}
+  {% if res.page < res.pages %}<a class="px-3 py-1 bg-white border rounded" href="/tenders?{{ query }}&amp;page={{ res.page + 1 }}">Next &rarr;</a>{% endif %}
+</div>
+{% endif %}
+<div class="bg-white rounded-xl border border-stone-200 p-5">
+  <h2 class="font-semibold mb-2">Import tenders (CSV)</h2>
+  <p class="text-xs text-stone-500 mb-3">Required columns: <code>title</code>, <code>deadline</code> (YYYY-MM-DD). Optional: ref_no, authority, category, cpv_codes, country, region, currency, estimated_value, bid_security, min_turnover, min_experience_years, certs_required (| separated), published_date, description, url. Re-importing updates existing rows instead of duplicating them.</p>
+  <form method="post" action="/tenders/import" enctype="multipart/form-data" class="flex flex-wrap gap-2 items-center">
+    {{ csrf_field }}
+    <input type="file" name="file" accept=".csv,text/csv" required class="text-sm" aria-label="CSV file">
+    <input name="source" value="csv" placeholder="source label" aria-label="Source label" class="border border-stone-300 rounded-lg px-3 py-2 text-sm w-40">
+    <button class="bg-orange-600 text-white rounded-lg px-4 py-2 text-sm">Import CSV</button>
+  </form>
+</div>
+{% endblock %}

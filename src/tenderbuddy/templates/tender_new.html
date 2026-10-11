@@ -1,0 +1,31 @@
+{% extends "base.html" %}
+{% block title %}Add tender{% endblock %}
+{% macro field(form, name, label, type="text", required=false, span=false, placeholder="") %}
+<label class="block {% if span %}md:col-span-2{% endif %}"><span class="font-medium">{{ label }}{% if required %} *{% endif %}</span>
+  <input name="{{ name }}" type="{{ type }}" value="{{ form.get(name, '') }}" placeholder="{{ placeholder }}" {% if required %}required{% endif %} {% if type == "number" %}step="any" min="0"{% endif %} class="mt-1 w-full border border-stone-300 rounded-lg px-3 py-2"></label>
+{% endmacro %}
+{% block content %}
+<a href="/tenders" class="text-sm text-orange-600 hover:underline">&larr; Back to tenders</a>
+<h1 class="text-2xl font-bold mt-1 mb-4">Add a tender manually</h1>
+<form method="post" action="/tenders/new" class="bg-white rounded-xl border border-stone-200 p-6 max-w-3xl grid md:grid-cols-2 gap-4 text-sm">
+  {{ csrf_field }}
+  {{ field(form, "title", "Title", required=true, span=true) }}
+  {{ field(form, "deadline", "Submission deadline (UTC)", type="datetime-local", required=true) }}
+  {{ field(form, "ref_no", "Reference number") }}
+  {{ field(form, "authority", "Contracting authority") }}
+  {{ field(form, "category", "Category") }}
+  {{ field(form, "cpv_codes", "CPV codes (comma-separated)", placeholder="72000000, 48000000") }}
+  {{ field(form, "country", "Country", placeholder="PHL") }}
+  {{ field(form, "region", "Region / state") }}
+  {{ field(form, "currency", "Currency (ISO)", placeholder="PHP") }}
+  {{ field(form, "estimated_value", "Estimated value", type="number") }}
+  {{ field(form, "bid_security", "Bid security / EMD", type="number") }}
+  {{ field(form, "min_turnover", "Minimum annual turnover", type="number") }}
+  {{ field(form, "min_experience_years", "Minimum years of experience", type="number") }}
+  {{ field(form, "certs_required", "Required certificates (comma-separated)", span=true) }}
+  {{ field(form, "url", "Notice URL", type="url", span=true) }}
+  <label class="block md:col-span-2"><span class="font-medium">Description</span>
+    <textarea name="description" rows="6" class="mt-1 w-full border border-stone-300 rounded-lg px-3 py-2">{{ form.get('description', '') }}</textarea></label>
+  <div class="md:col-span-2"><button class="bg-orange-600 text-white rounded-lg px-6 py-2">Create tender</button></div>
+</form>
+{% endblock %}

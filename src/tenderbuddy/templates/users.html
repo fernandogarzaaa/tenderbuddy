@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+{% block title %}Users{% endblock %}
+{% block content %}
+<h1 class="text-2xl font-bold mb-4">Users</h1>
+<div class="bg-white rounded-xl border border-stone-200 overflow-hidden mb-6 max-w-3xl">
+  <table class="w-full text-sm">
+    <thead class="bg-stone-50 text-left text-xs uppercase text-stone-500"><tr><th class="px-4 py-3">Email</th><th class="px-4 py-3">Role</th><th class="px-4 py-3">Status</th><th class="px-4 py-3"></th></tr></thead>
+    <tbody class="divide-y divide-stone-100">
+      {% for u in users %}
+      <tr><td class="px-4 py-3">{{ u.email }}{% if u.name %} <span class="text-stone-400">({{ u.name }})</span>{% endif %}</td><td class="px-4 py-3">{{ u.role }}</td>
+        <td class="px-4 py-3">{{ "active" if u.is_active else "deactivated" }}</td>
+        <td class="px-4 py-3 text-right">{% if u.id != user.id %}<form method="post" action="/users/{{ u.id }}/toggle">{{ csrf_field }}<button class="text-xs text-orange-600 hover:underline">{{ "Deactivate" if u.is_active else "Activate" }}</button></form>{% endif %}</td></tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</div>
+<form method="post" action="/users" class="bg-white rounded-xl border border-stone-200 p-6 max-w-3xl grid md:grid-cols-2 gap-4 text-sm">
+  {{ csrf_field }}
+  <h2 class="font-semibold md:col-span-2">Add user</h2>
+  <label class="block"><span class="font-medium">Email</span><input name="email" type="email" required class="mt-1 w-full border border-stone-300 rounded-lg px-3 py-2"></label>
+  <label class="block"><span class="font-medium">Name</span><input name="name" class="mt-1 w-full border border-stone-300 rounded-lg px-3 py-2"></label>
+  <label class="block"><span class="font-medium">Password (10+ characters)</span><input name="password" type="password" minlength="10" required autocomplete="new-password" class="mt-1 w-full border border-stone-300 rounded-lg px-3 py-2"></label>
+  <label class="block"><span class="font-medium">Role</span><select name="role" class="mt-1 w-full border border-stone-300 rounded-lg px-3 py-2"><option value="member">member</option><option value="admin">admin</option></select></label>
+  <div class="md:col-span-2"><button class="bg-orange-600 text-white rounded-lg px-6 py-2">Create user</button></div>
+</form>
+{% endblock %}

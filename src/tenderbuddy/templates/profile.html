@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+{% block title %}Company profile{% endblock %}
+{% block content %}
+<h1 class="text-2xl font-bold mb-1">Company profile</h1>
+<p class="text-sm text-stone-500 mb-6">Drives the eligibility matcher and bid drafts. Lists are comma-separated.</p>
+<form method="post" action="/profile" class="bg-white rounded-xl border border-stone-200 p-6 max-w-3xl grid md:grid-cols-2 gap-4 text-sm">
+  {{ csrf_field }}
+  <label class="block md:col-span-2"><span class="font-medium">Company name</span><input name="name" value="{{ p.name }}" class="mt-1 w-full border border-stone-300 rounded-lg px-3 py-2"></label>
+  <label class="block"><span class="font-medium">Currency (ISO code)</span><input name="currency" value="{{ p.currency }}" maxlength="3" class="mt-1 w-full border border-stone-300 rounded-lg px-3 py-2"></label>
+  <label class="block"><span class="font-medium">Annual turnover</span><input name="annual_turnover" type="number" min="0" step="any" value="{{ p.annual_turnover }}" class="mt-1 w-full border border-stone-300 rounded-lg px-3 py-2"></label>
+  <label class="block"><span class="font-medium">Years of experience</span><input name="years_experience" type="number" min="0" value="{{ p.years_experience }}" class="mt-1 w-full border border-stone-300 rounded-lg px-3 py-2"></label>
+  <label class="block"><span class="font-medium">Regions / countries served</span><input name="regions" value="{{ p.regions|join(', ') }}" placeholder="IRL, GBR, Karnataka, All" class="mt-1 w-full border border-stone-300 rounded-lg px-3 py-2"></label>
+  <label class="block md:col-span-2"><span class="font-medium">Certifications</span><input name="certifications" value="{{ p.certifications|join(', ') }}" placeholder="ISO 9001, ISO 27001" class="mt-1 w-full border border-stone-300 rounded-lg px-3 py-2"></label>
+  <label class="block"><span class="font-medium">Business categories</span><input name="categories" value="{{ p.categories|join(', ') }}" placeholder="IT Services, Supply, Works" class="mt-1 w-full border border-stone-300 rounded-lg px-3 py-2"></label>
+  <label class="block"><span class="font-medium">CPV code prefixes</span><input name="cpv_prefixes" value="{{ p.cpv_prefixes|join(', ') }}" placeholder="72, 48" class="mt-1 w-full border border-stone-300 rounded-lg px-3 py-2"></label>
+  <label class="block md:col-span-2"><span class="font-medium">Keywords</span><input name="keywords" value="{{ p.keywords|join(', ') }}" placeholder="software, data centre, network" class="mt-1 w-full border border-stone-300 rounded-lg px-3 py-2"></label>
+  <label class="block md:col-span-2"><span class="font-medium">Capability statement</span><textarea name="capability_statement" rows="5" class="mt-1 w-full border border-stone-300 rounded-lg px-3 py-2">{{ p.capability_statement }}</textarea></label>
+  <div class="md:col-span-2"><button class="bg-orange-600 text-white rounded-lg px-6 py-2">Save profile</button></div>
+</form>
+{% endblock %}

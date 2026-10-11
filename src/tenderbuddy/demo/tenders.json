@@ -1,0 +1,250 @@
+[
+ {
+  "ref_no": "GEM/2026/B/6123451",
+  "title": "Supply of Desktop Computers and All-in-One PCs",
+  "authority": "Ministry of Electronics and IT",
+  "category": "IT Services",
+  "region": "Karnataka",
+  "country": "IND",
+  "currency": "INR",
+  "estimated_value": 12000000,
+  "bid_security": 240000,
+  "min_turnover": 80000000,
+  "min_experience_years": 3,
+  "certs_required": [
+   "ISO 9001:2015",
+   "GeM Registered"
+  ],
+  "description": "Supply, installation and 3-year onsite warranty of 150 desktop computers and 40 all-in-one PCs for regional offices. Bidders must have OEM authorization.",
+  "portal": "GeM",
+  "published_days_ago": 6,
+  "deadline_in_days": 5
+ },
+ {
+  "ref_no": "CPP/2026/AMC/08821",
+  "title": "Annual Maintenance Contract for CCTV Surveillance System",
+  "authority": "Delhi Police Headquarters",
+  "category": "IT Services",
+  "region": "Delhi",
+  "country": "IND",
+  "currency": "INR",
+  "estimated_value": 4500000,
+  "bid_security": 90000,
+  "min_turnover": 20000000,
+  "min_experience_years": 2,
+  "certs_required": [
+   "MSME Registered"
+  ],
+  "description": "Comprehensive AMC for 320 CCTV cameras, NVRs and video wall across 4 buildings for 12 months. Includes quarterly preventive maintenance and 24x7 breakdown support with 4-hour SLA.",
+  "portal": "CPP Portal",
+  "published_days_ago": 10,
+  "deadline_in_days": 3
+ },
+ {
+  "ref_no": "CPWD/EE-D/2026/114",
+  "title": "Construction of Additional Classroom Block at Government School",
+  "authority": "Central Public Works Department",
+  "category": "Works",
+  "region": "Maharashtra",
+  "country": "IND",
+  "currency": "INR",
+  "estimated_value": 38000000,
+  "bid_security": 760000,
+  "min_turnover": 300000000,
+  "min_experience_years": 7,
+  "certs_required": [
+   "ISO 9001:2015",
+   "Contractor Class A"
+  ],
+  "description": "G+2 RCC classroom block (12 classrooms, toilets, staircase) including electrical, plumbing and finishing works. Completion period 12 months. Liquidated damages 0.5% per week of delay.",
+  "portal": "eProcure",
+  "published_days_ago": 12,
+  "deadline_in_days": 9
+ },
+ {
+  "ref_no": "GEM/2026/B/6127780",
+  "title": "Supply of Office Stationery on Rate Contract",
+  "authority": "Department of Administrative Reforms",
+  "category": "Supply",
+  "region": "Delhi",
+  "country": "IND",
+  "currency": "INR",
+  "estimated_value": 2800000,
+  "bid_security": null,
+  "min_turnover": 10000000,
+  "min_experience_years": 1,
+  "certs_required": [
+   "GeM Registered"
+  ],
+  "description": "Two-year rate contract for supply of office stationery items (210 line items) to 14 offices in Delhi NCR. EMD exempted for MSE bidders. Quarterly billing.",
+  "portal": "GeM",
+  "published_days_ago": 4,
+  "deadline_in_days": 12
+ },
+ {
+  "ref_no": "RLY/CATG/2026/045",
+  "title": "Catering Services for Railway Station Food Plaza",
+  "authority": "IRCTC / Northern Railway",
+  "category": "Supply",
+  "region": "Delhi",
+  "country": "IND",
+  "currency": "INR",
+  "estimated_value": 21000000,
+  "bid_security": 420000,
+  "min_turnover": 150000000,
+  "min_experience_years": 5,
+  "certs_required": [
+   "FSSAI License",
+   "ISO 22000"
+  ],
+  "description": "License for operating food plaza at New Delhi Railway Station for 5 years. Minimum annual license fee Rs 42 lakh. Performance security of 10% required via bank guarantee.",
+  "portal": "CPP Portal",
+  "published_days_ago": 8,
+  "deadline_in_days": 6
+ },
+ {
+  "ref_no": "GEM/2026/B/6119002",
+  "title": "Development of Citizen Grievance Redressal Portal",
+  "authority": "Karnataka State e-Governance Mission",
+  "category": "IT Services",
+  "region": "Karnataka",
+  "country": "IND",
+  "currency": "INR",
+  "estimated_value": 9500000,
+  "bid_security": 190000,
+  "min_turnover": 50000000,
+  "min_experience_years": 4,
+  "certs_required": [
+   "ISO 9001:2015",
+   "ISO 27001",
+   "GeM Registered"
+  ],
+  "description": "Design, development and 2-year maintenance of a multilingual grievance redressal portal with workflow engine, SMS/email alerts and analytics dashboard. Agile delivery in 6 sprints.",
+  "portal": "GeM",
+  "published_days_ago": 15,
+  "deadline_in_days": 15
+ },
+ {
+  "ref_no": "MSEDCL/SOLAR/2026/311",
+  "title": "Supply and Installation of 50 kW Rooftop Solar Plant",
+  "authority": "Maharashtra State Electricity Distribution Co.",
+  "category": "Works",
+  "region": "Maharashtra",
+  "country": "IND",
+  "currency": "INR",
+  "estimated_value": 3400000,
+  "bid_security": 68000,
+  "min_turnover": 25000000,
+  "min_experience_years": 3,
+  "certs_required": [
+   "MNRE Channel Partner",
+   "ISO 9001:2015"
+  ],
+  "description": "Design, supply, installation and 5-year O&M of 50 kW grid-connected rooftop solar PV plant at divisional office. Net metering liaison included. Penalty for generation shortfall applies.",
+  "portal": "eProcure",
+  "published_days_ago": 5,
+  "deadline_in_days": 4
+ },
+ {
+  "ref_no": "GEM/2026/B/6130204",
+  "title": "Hiring of Vehicles on Monthly Basis",
+  "authority": "Income Tax Department",
+  "category": "Supply",
+  "region": "Delhi",
+  "country": "IND",
+  "currency": "INR",
+  "estimated_value": 6000000,
+  "bid_security": 120000,
+  "min_turnover": 30000000,
+  "min_experience_years": 2,
+  "certs_required": [
+   "GeM Registered"
+  ],
+  "description": "Hiring of 12 diesel SUVs with drivers on monthly basis for 24 months. Vehicles not older than 2023 model. Fuel and maintenance by bidder. Corrigendum 1 issued extending bid due date.",
+  "portal": "GeM",
+  "published_days_ago": 3,
+  "deadline_in_days": 20
+ },
+ {
+  "ref_no": "CPP/2026/NET/09117",
+  "title": "Network LAN Upgrade for District Collectorate",
+  "authority": "District Collectorate, Bengaluru Urban",
+  "category": "IT Services",
+  "region": "Karnataka",
+  "country": "IND",
+  "currency": "INR",
+  "estimated_value": 5200000,
+  "bid_security": 104000,
+  "min_turnover": 40000000,
+  "min_experience_years": 3,
+  "certs_required": [
+   "ISO 9001:2015",
+   "OEM Authorization"
+  ],
+  "description": "Supply and laying of Cat6A structured cabling (400 nodes), 12 managed switches and firewall for collectorate campus. Completion within 30 days of work order. Short bidding window.",
+  "portal": "CPP Portal",
+  "published_days_ago": 9,
+  "deadline_in_days": 2
+ },
+ {
+  "ref_no": "CEO-MH/PRINT/2026/77",
+  "title": "Printing of Voter Awareness Material",
+  "authority": "Chief Electoral Officer, Maharashtra",
+  "category": "Supply",
+  "region": "Maharashtra",
+  "country": "IND",
+  "currency": "INR",
+  "estimated_value": 1800000,
+  "bid_security": 36000,
+  "min_turnover": 10000000,
+  "min_experience_years": 2,
+  "certs_required": [
+   "MSME Registered"
+  ],
+  "description": "Printing and district-wise distribution of 5 lakh pamphlets, 20,000 posters and 500 hoardings for voter awareness campaign. Delivery within 21 days.",
+  "portal": "eProcure",
+  "published_days_ago": 7,
+  "deadline_in_days": 8
+ },
+ {
+  "ref_no": "GEM/2026/C/6098812",
+  "title": "Consultancy for Smart City Traffic Survey",
+  "authority": "Pune Smart City Development Corp.",
+  "category": "Consultancy",
+  "region": "Maharashtra",
+  "country": "IND",
+  "currency": "INR",
+  "estimated_value": 7500000,
+  "bid_security": 150000,
+  "min_turnover": 60000000,
+  "min_experience_years": 5,
+  "certs_required": [
+   "ISO 9001:2015"
+  ],
+  "description": "Traffic volume counts, OD survey and signal timing study at 40 junctions. Deliverables include microsimulation model and DPR chapter. Key experts: transport planner, data analyst.",
+  "portal": "GeM",
+  "published_days_ago": 11,
+  "deadline_in_days": 25
+ },
+ {
+  "ref_no": "CPP/2026/LED/09230",
+  "title": "Supply of LED Street Lights with 5-year Warranty",
+  "authority": "Bengaluru Municipal Corporation",
+  "category": "Supply",
+  "region": "Karnataka",
+  "country": "IND",
+  "currency": "INR",
+  "estimated_value": 14000000,
+  "bid_security": 280000,
+  "min_turnover": 120000000,
+  "min_experience_years": 4,
+  "certs_required": [
+   "BIS Certification",
+   "ISO 9001:2015"
+  ],
+  "description": "Supply of 4,000 LED street lights (120W) with 5-year replacement warranty and centralized monitoring system. Sample testing at NABL lab before bulk supply.",
+  "portal": "CPP Portal",
+  "published_days_ago": 2,
+  "deadline_in_days": 11
+ }
+]
