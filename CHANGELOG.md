@@ -36,6 +36,10 @@ First stable release. A rewrite of the beta as an installable package (`src/tend
 - Configuration via environment variables / `.env` (pydantic-settings); every setting documented
   in `.env.example`.
 
+### Fixed
+- A malformed CSV upload (e.g. a field over the csv module's size limit) is now rejected with a
+  clear error instead of an unhandled exception.
+
 ### Security
 - Production mode refuses to start with the default secret key or admin password, or with demo data.
 - bcrypt password hashing with a password policy, JWT via PyJWT (python-jose removed),
