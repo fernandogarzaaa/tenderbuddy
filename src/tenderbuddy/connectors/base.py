@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 import logging
+import re
 import time
 from abc import ABC, abstractmethod
 from collections.abc import Callable
@@ -138,41 +139,41 @@ def to_naive_utc(dt: datetime) -> datetime:
     return dt.astimezone(timezone.utc).replace(tzinfo=None)
 
 
-def parse_iso_datetime(raw: str | None) -> datetime | None:
+_DATE_ONLY = re.compile(r"^(\d{4}-\d{2}-\d{2})(Z|[+-]\d{2}:\d{2})?$")
+
+
+def parse_iso_datetime(raw: str | None, *, end_of_day: bool = True) -> datetime | None:
     """Parse ISO-8601 datetimes and TED-style dates with offsets ("2026-11-06+01:00").
 
-    Date-only values are taken as the end of that day (23:59:59) in their offset,
-    the conservative reading of a submission deadline. Returns naive UTC.
+    Date-only values are taken as the end of that day (23:59:59) in their offset
+    (UTC when none), the conservative reading of a submission deadline; pass
+    ``end_of_day=False`` for start-of-day (publication dates).
+    Returns naive UTC.
     """
     if not raw:
         return None
     s = str(raw).strip()
-    if not s:
-        return None
+    m = _DATE_ONLY.match(s)
+    if m:
+        try:
+            d = date.fromisoformat(m.group(1))
+        except ValueError:
+            return None
+        offset = m.group(2) or "Z"
+        tz = timezone.utc
+        if offset != "Z":
+            sign = 1 if offset[0] == "+" else -1
+            tz = timezone(sign * timedelta(hours=int(offset[1:3]), minutes=int(offset[4:6])))
+        hms = (23, 59, 59) if end_of_day else (0, 0, 0)
+        return to_naive_utc(datetime(d.year, d.month, d.day, *hms, tzinfo=tz))
     if s.endswith("Z"):
         s = s[:-1] + "+00:00"
+    if "T" not in s and " " not in s:
+        return None
     try:
         return to_naive_utc(datetime.fromisoformat(s))
     except ValueError:
-        pass
-    if len(s) < 10:
         return None
-    try:
-        d = date.fromisoformat(s[:10])
-    except ValueError:
-        return None
-    offset = s[10:]
-    tz = timezone.utc
-    if offset:
-        try:
-            sign = 1 if offset[0] == "+" else -1 if offset[0] == "-" else 0
-            hh, mm = offset[1:].split(":")
-            if sign == 0:
-                return None
-            tz = timezone(sign * timedelta(hours=int(hh), minutes=int(mm)))
-        except ValueError:
-            return None
-    return to_naive_utc(datetime(d.year, d.month, d.day, 23, 59, 59, tzinfo=tz))
 
 
 def parse_float(raw: Any) -> float | None:

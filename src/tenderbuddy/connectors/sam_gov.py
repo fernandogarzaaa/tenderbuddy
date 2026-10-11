@@ -59,7 +59,7 @@ def parse_opportunity(opp: dict[str, Any]) -> TenderRecord | None:
         country=clean(country.get("code")) or "USA",
         region=clean(state.get("code")) or clean(state.get("name")),
         currency="USD",
-        published_at=parse_iso_datetime(clean(opp.get("postedDate")) or None),
+        published_at=parse_iso_datetime(clean(opp.get("postedDate")) or None, end_of_day=False),
         description="\n".join(f"{k}: {v}" for k, v in details if v),
         url=clean(opp.get("uiLink")) or f"https://sam.gov/opp/{notice_id}/view",
     )

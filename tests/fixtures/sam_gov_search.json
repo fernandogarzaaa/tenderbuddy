@@ -1,0 +1,60 @@
+{
+  "_comment": "Synthesized from the response shape documented at https://open.gsa.gov/api/get-opportunities-public-api/ (v2). Not a recorded live response: the SAM.gov API needs a personal key.",
+  "totalRecords": 3,
+  "limit": 100,
+  "offset": 0,
+  "opportunitiesData": [
+    {
+      "noticeId": "9f0c1a2b3c4d5e6f7a8b9c0d1e2f3a4b",
+      "title": "Cloud Hosting and Managed Services for Agency Portal",
+      "solicitationNumber": "47QTCA-26-R-0042",
+      "fullParentPathName": "GENERAL SERVICES ADMINISTRATION.FEDERAL ACQUISITION SERVICE.GSA/FAS CENTER FOR IT SCHEDULE PROG",
+      "fullParentPathCode": "047.4732.47QTCA",
+      "postedDate": "2026-10-06",
+      "type": "Solicitation",
+      "baseType": "Solicitation",
+      "archiveType": "autocustom",
+      "archiveDate": "2026-12-15",
+      "typeOfSetAsideDescription": "Total Small Business Set-Aside (FAR 19.5)",
+      "typeOfSetAside": "SBA",
+      "responseDeadLine": "2026-11-14T17:00:00-05:00",
+      "naicsCode": "518210",
+      "classificationCode": "DA01",
+      "active": "Yes",
+      "award": null,
+      "pointOfContact": [{"type": "primary", "email": "co@example.gov", "fullName": "Jane Officer"}],
+      "description": "https://api.sam.gov/prod/opportunities/v1/noticedesc?noticeid=9f0c1a2b3c4d5e6f7a8b9c0d1e2f3a4b",
+      "organizationType": "OFFICE",
+      "officeAddress": {"zipcode": "20405", "city": "WASHINGTON", "countryCode": "USA", "state": "DC"},
+      "placeOfPerformance": {"city": {"code": "50000", "name": "Washington"}, "state": {"code": "DC", "name": "District of Columbia"}, "country": {"code": "USA", "name": "UNITED STATES"}},
+      "additionalInfoLink": null,
+      "uiLink": "https://sam.gov/opp/9f0c1a2b3c4d5e6f7a8b9c0d1e2f3a4b/view",
+      "links": [{"rel": "self", "href": "https://api.sam.gov/prod/opportunities/v1/search?noticeid=9f0c1a2b3c4d5e6f7a8b9c0d1e2f3a4b&limit=1"}],
+      "resourceLinks": null
+    },
+    {
+      "noticeId": "11112222333344445555666677778888",
+      "title": "Archived: Janitorial Services",
+      "solicitationNumber": "W912-26-Q-0001",
+      "fullParentPathName": "DEPT OF DEFENSE.DEPT OF THE ARMY",
+      "postedDate": "2026-10-02",
+      "type": "Combined Synopsis/Solicitation",
+      "responseDeadLine": "2026-10-20T12:00:00-04:00",
+      "naicsCode": "561720",
+      "active": "No",
+      "uiLink": "null"
+    },
+    {
+      "noticeId": "aaaabbbbccccddddeeeeffff00001111",
+      "title": "Sources Sought without deadline",
+      "solicitationNumber": "null",
+      "fullParentPathName": "DEPARTMENT OF ENERGY",
+      "postedDate": "2026-10-03",
+      "type": "Solicitation",
+      "responseDeadLine": null,
+      "active": "Yes",
+      "uiLink": "null"
+    }
+  ],
+  "links": [{"rel": "self", "href": "https://api.sam.gov/prod/opportunities/v1/search?limit=100"}]
+}

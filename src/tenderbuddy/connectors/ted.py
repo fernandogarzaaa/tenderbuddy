@@ -110,7 +110,7 @@ def parse_notice(notice: dict[str, Any]) -> TenderRecord | None:
         region=region,
         currency=currencies[0] if len(currencies) == 1 else "",
         estimated_value=sum(values) if values and len(currencies) <= 1 else None,
-        published_at=parse_iso_datetime(_first(notice.get("publication-date"))),
+        published_at=parse_iso_datetime(_first(notice.get("publication-date")), end_of_day=False),
         description=pick_lang(notice.get("description-proc"))[:20000],
         url=f"https://ted.europa.eu/en/notice/-/detail/{pub_no}",
     )

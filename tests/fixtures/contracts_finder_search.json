@@ -1,0 +1,636 @@
+{
+ "uri": "https://www.contractsfinder.service.gov.uk/Published/Notices/OCDS/Search?publishedFrom=2026-10-05T00:00:00&publishedTo=2026-10-11T00:00:00&stages=tender&limit=5",
+ "version": "1.1",
+ "extensions": [
+  "https://standard.open-contracting.org/profiles/eu/master/en/extension.json",
+  "https://raw.githubusercontent.com/portaledcahn/ocds_tenderDatePublished_extension/master/extension.json",
+  "https://raw.githubusercontent.com/open-contracting-extensions/ocds_budget_breakdown_extension/master/extension.json",
+  "https://raw.githubusercontent.com/Crown-Commercial-Service/ocds_awards_datePublished_extension/main/extension.json",
+  "https://raw.githubusercontent.com/Crown-Commercial-Service/ocds_partyDetails_vcse_extension/main/extension.json",
+  "https://raw.githubusercontent.com/Crown-Commercial-Service/ocds_tender_suitability_extension/main/extension.json",
+  "https://raw.githubusercontent.com/open-contracting-extensions/ocds_pagination_extension/master/extension.json"
+ ],
+ "publishedDate": "2026-10-09T18:30:14+01:00",
+ "publisher": {
+  "name": "Cabinet Office",
+  "scheme": "GB-GOR",
+  "uid": "D2",
+  "uri": "https://www.gov.uk/government/organisations/cabinet-office"
+ },
+ "license": "http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3/",
+ "publicationPolicy": "https://www.gov.uk/government/publications/open-contracting",
+ "releases": [
+  {
+   "ocid": "ocds-b5fd17-eba856aa-b8d6-4d73-b794-8420ea10a3d9",
+   "id": "d2301388-4ca6-48fc-805d-eb2e5793377e-917336",
+   "language": "en",
+   "date": "2026-10-09T18:30:14+01:00",
+   "tag": [
+    "tender"
+   ],
+   "initiationType": "tender",
+   "tender": {
+    "id": "68f9f9f5-5a6f-47df-ae77-6b1aceb3f7ea",
+    "title": "CA18543 - Northampton College - Media planning & Buying Services",
+    "description": "Northampton College is seeking to appoint an experienced media planning and buying agency to support the planning, booking, optimisation and evaluation of paid media campaigns. The appointed agency will work closely with the College's Marketing and Communications team to deliver insight-led, cost-effective campaigns that reach key audiences and support student recruitment, adult learning, higher education, summer recruitment, open events and employer engagement activity.\r\n\r\nTo access this competition: \r\n\r\nRegistered:\r\nLogin to https://suppliers.multiquote.com and view the opportunity CA18543.\r\n\r\nNot registered:\r\nVisit https://suppliers.multiquote.com then register and quote CA18543 as the reason for registration. \r\n\r\n Any queries please contact MultiQuote on 020 3920 8054.",
+    "datePublished": "2026-10-09T18:30:14+01:00",
+    "status": "active",
+    "classification": {
+     "scheme": "CPV",
+     "id": "79340000",
+     "description": "Advertising and marketing services"
+    },
+    "additionalClassifications": [
+     {
+      "scheme": "CPV",
+      "id": "79342000",
+      "description": "Marketing services"
+     },
+     {
+      "scheme": "CPV",
+      "id": "79413000",
+      "description": "Marketing management consultancy services"
+     }
+    ],
+    "items": [
+     {
+      "id": "1",
+      "deliveryAddresses": [
+       {
+        "postalCode": "NN3 3RF"
+       },
+       {
+        "countryName": "British Oversea Territories"
+       },
+       {
+        "countryName": "Channel Islands"
+       },
+       {
+        "countryName": "Europe"
+       },
+       {
+        "countryName": "Isle of Man"
+       },
+       {
+        "countryName": "Rest of the World"
+       },
+       {
+        "countryName": "United Kingdom"
+       }
+      ]
+     }
+    ],
+    "value": {
+     "amount": 250000,
+     "currency": "GBP"
+    },
+    "procurementMethod": "open",
+    "procurementMethodDetails": "Open procedure",
+    "tenderPeriod": {
+     "endDate": "2026-11-04T12:00:00Z"
+    },
+    "contractPeriod": {
+     "startDate": "2026-11-30T00:00:00Z",
+     "endDate": "2029-11-29T23:59:59Z"
+    },
+    "suitability": {
+     "sme": true,
+     "vcse": false
+    },
+    "mainProcurementCategory": "services",
+    "documents": [
+     {
+      "id": "1",
+      "documentType": "tenderNotice",
+      "description": "Opportunity notice on Contracts Finder",
+      "url": "https://www.contractsfinder.service.gov.uk/Notice/d2301388-4ca6-48fc-805d-eb2e5793377e",
+      "datePublished": "2026-10-09T18:30:14+01:00",
+      "format": "text/html",
+      "language": "en"
+     }
+    ]
+   },
+   "parties": [
+    {
+     "id": "GB-CFS-117389",
+     "name": "Northampton College",
+     "identifier": {
+      "legalName": "Northampton College"
+     },
+     "address": {
+      "streetAddress": "Booth Lane",
+      "locality": "Northampton",
+      "postalCode": "NN3 3RF",
+      "countryName": "England"
+     },
+     "contactPoint": {
+      "name": "Victoria Murphy",
+      "email": "support@multiquote.com",
+      "telephone": "0151 482 9230"
+     },
+     "details": {
+      "url": "https://suppliers.multiquote.com"
+     },
+     "roles": [
+      "buyer"
+     ]
+    }
+   ],
+   "buyer": {
+    "id": "GB-CFS-117389",
+    "name": "Northampton College"
+   }
+  },
+  {
+   "ocid": "ocds-b5fd17-1a7bd01a-209f-4511-8cc6-066ba5c908ed",
+   "id": "730d30e5-f328-4b66-be0e-1313c6b74cc8-917333",
+   "language": "en",
+   "date": "2026-10-09T17:45:16+01:00",
+   "tag": [
+    "tender"
+   ],
+   "initiationType": "tender",
+   "tender": {
+    "id": "MT238295",
+    "title": "4 John Street, Maryport - Lintel Replacement and Rendering",
+    "description": "Replacement of a rotten timber lintel with a new steel or concrete lintel for a property located within a conservation area. To include renewal of lime stucco render to the front elevation.",
+    "datePublished": "2026-10-09T17:45:15+01:00",
+    "status": "active",
+    "classification": {
+     "scheme": "CPV",
+     "id": "45453100",
+     "description": "Refurbishment work"
+    },
+    "additionalClassifications": [
+     {
+      "scheme": "CPV",
+      "id": "45453000",
+      "description": "Overhaul and refurbishment work"
+     },
+     {
+      "scheme": "CPV",
+      "id": "45223210",
+      "description": "Structural steelworks"
+     },
+     {
+      "scheme": "CPV",
+      "id": "45223200",
+      "description": "Structural works"
+     },
+     {
+      "scheme": "CPV",
+      "id": "44212000",
+      "description": "Structural products and parts except prefabricated buildings"
+     },
+     {
+      "scheme": "CPV",
+      "id": "44200000",
+      "description": "Structural products"
+     },
+     {
+      "scheme": "CPV",
+      "id": "45410000",
+      "description": "Plastering work"
+     }
+    ],
+    "items": [
+     {
+      "id": "1",
+      "deliveryAddresses": [
+       {
+        "region": "North West",
+        "countryName": "United Kingdom"
+       }
+      ]
+     }
+    ],
+    "minValue": {
+     "amount": 20000,
+     "currency": "GBP"
+    },
+    "value": {
+     "amount": 30000,
+     "currency": "GBP"
+    },
+    "procurementMethod": "open",
+    "procurementMethodDetails": "Open procedure (below threshold)",
+    "tenderPeriod": {
+     "endDate": "2026-11-05T16:00:00Z"
+    },
+    "contractPeriod": {
+     "startDate": "2026-11-30T00:00:00Z",
+     "endDate": "2026-12-25T23:59:59Z"
+    },
+    "suitability": {
+     "sme": true,
+     "vcse": false
+    },
+    "mainProcurementCategory": "works",
+    "documents": [
+     {
+      "id": "1",
+      "documentType": "tenderNotice",
+      "description": "Opportunity notice on Contracts Finder",
+      "url": "https://www.contractsfinder.service.gov.uk/Notice/730d30e5-f328-4b66-be0e-1313c6b74cc8",
+      "datePublished": "2026-10-09T17:45:15+01:00",
+      "format": "text/html",
+      "language": "en"
+     },
+     {
+      "id": "2",
+      "documentType": "tenderNotice",
+      "description": "NOTE: To register your interest in this notice and obtain any additional information please visit the myTenders Web Site at the link provided.",
+      "url": "https://www.mytenders.co.uk/search/show/search_view.aspx?ID=OCT171946"
+     }
+    ]
+   },
+   "parties": [
+    {
+     "id": "GB-CFS-263705",
+     "name": "Storm Tempest Ltd",
+     "identifier": {
+      "legalName": "Storm Tempest Ltd"
+     },
+     "address": {
+      "streetAddress": "3 Apollo Court, Koppers Way",
+      "locality": "Tyne & Wear",
+      "postalCode": "NE31 2ES",
+      "countryName": "England"
+     },
+     "contactPoint": {
+      "name": "Johnny Ball",
+      "email": "johnny.ball@stormtempest.com",
+      "telephone": "+44 1913009977"
+     },
+     "details": {
+      "url": "http://www.stormtempest.com"
+     },
+     "roles": [
+      "buyer"
+     ]
+    }
+   ],
+   "buyer": {
+    "id": "GB-CFS-263705",
+    "name": "Storm Tempest Ltd"
+   }
+  },
+  {
+   "ocid": "ocds-b5fd17-e0d0ad97-b51f-4690-a9ea-34e4bc4bef3a",
+   "id": "fbd84a07-e74d-4638-87f8-24511f3e8599-917327",
+   "language": "en",
+   "date": "2026-10-09T16:38:37+01:00",
+   "tag": [
+    "tender"
+   ],
+   "initiationType": "tender",
+   "tender": {
+    "id": "CF-0001200DQH00000KAh9p2AD",
+    "title": "Design and Installation of the East Midlands Pavilion at UKREiiF 2027",
+    "description": "This Team East Midlands opportunity is advertised to set out the mandatory and required services, Deliverables, standards, outputs and outcomes for the design and installation of the Team East Midlands pavilion at UKREiiF 2027, from design concept, project governance and management, through to onsite delivery.\r\nThe contract will be awarded to a single provider, who will be responsible for delivering the full scope of services. Where necessary, the provider may utilise subcontracting arrangements with third parties to ensure all contract requirements are delivered effectively and in full.\r\n\r\nThe East Midlands Combined Authority (EMMCA) is led by Mayor of the East Midlands, Claire ward and covers the four local authority areas of Derbyshire, Nottinghamshire, Derby and Nottingham. Its priorities include economic growth, transport, housing. Skills and adult education, green growth and the visitor economy.\r\n\r\nUKREiiF is the UK's largest real estate investment and infrastructure forum. It is a three-day major event that was established in 2022, defying expectations, attracting thousands of domestic and international developers, investors, Authority's and built environment thought leaders. Its aim is to connect people, places and businesses to accelerate and unlock sustainable, inclusive and transformational investment and growth.\r\nThe contract value is a maximum of £130,000 in total and the contract term is approx. 6 Months, the contract will be awarded for the initial term from 01/2027 until 06/2027. There are no extensions available for this.\r\nProviders will be expected to upload the required attachments into the e-procurement portal as advised in the Invitation to Tender document.\r\nThe award criteria  is set out within the attached Invitation to Tender documentation.",
+    "datePublished": "2026-10-09T16:38:37+01:00",
+    "status": "active",
+    "classification": {
+     "scheme": "CPV",
+     "id": "79952000",
+     "description": "Event services"
+    },
+    "items": [
+     {
+      "id": "1",
+      "deliveryAddresses": [
+       {
+        "postalCode": "S40 1SA"
+       },
+       {
+        "region": "East Midlands",
+        "countryName": "United Kingdom"
+       }
+      ]
+     }
+    ],
+    "value": {
+     "amount": 130000,
+     "currency": "GBP"
+    },
+    "procurementMethod": "open",
+    "procurementMethodDetails": "Open procedure (below threshold)",
+    "tenderPeriod": {
+     "endDate": "2026-11-06T11:00:00Z"
+    },
+    "contractPeriod": {
+     "startDate": "2027-01-04T00:00:00Z",
+     "endDate": "2027-06-04T23:59:59+01:00"
+    },
+    "suitability": {
+     "sme": true,
+     "vcse": false
+    },
+    "mainProcurementCategory": "works",
+    "documents": [
+     {
+      "id": "1",
+      "documentType": "tenderNotice",
+      "description": "Opportunity notice on Contracts Finder",
+      "url": "https://www.contractsfinder.service.gov.uk/Notice/fbd84a07-e74d-4638-87f8-24511f3e8599",
+      "datePublished": "2026-10-09T16:38:37+01:00",
+      "format": "text/html",
+      "language": "en"
+     },
+     {
+      "id": "2",
+      "description": "Appendix C -Key Performance indicators-Uk REiiF Final Draft",
+      "url": "https://www.contractsfinder.service.gov.uk/Notice/Attachment/f3923e5a-6bbb-4f01-9d43-7fd616b54127",
+      "format": "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
+     },
+     {
+      "id": "3",
+      "description": "2. Event Management Services Agreement (005) DRAFT",
+      "url": "https://www.contractsfinder.service.gov.uk/Notice/Attachment/610117cf-998d-412a-83aa-4741cdc44a84",
+      "format": "application/vnd.openxmlformats-officedocument.wordprocessingml.document"
+     },
+     {
+      "id": "4",
+      "description": "4. Quality questions - Tender response",
+      "url": "https://www.contractsfinder.service.gov.uk/Notice/Attachment/77e977be-61e7-46f4-97f6-aca50264bd6d",
+      "format": "application/vnd.openxmlformats-officedocument.wordprocessingml.document"
+     },
+     {
+      "id": "5",
+      "description": "Appendix A-East Midlands CAD Plan",
+      "url": "https://www.contractsfinder.service.gov.uk/Notice/Attachment/6c45cb08-460b-42c4-a373-0217127b18fe",
+      "format": "application/pdf"
+     },
+     {
+      "id": "6",
+      "description": "Appendix B - Pavilion Specifications",
+      "url": "https://www.contractsfinder.service.gov.uk/Notice/Attachment/ebb8d592-d521-4889-97e9-760ab6355585",
+      "format": "application/pdf"
+     },
+     {
+      "id": "7",
+      "description": "3. Tender Specification Final",
+      "url": "https://www.contractsfinder.service.gov.uk/Notice/Attachment/94c73815-5458-4117-99b1-aa27d5eb8eed",
+      "format": "application/pdf"
+     },
+     {
+      "id": "8",
+      "description": "1. ITT Process Overview PA 23 FINAL..",
+      "url": "https://www.contractsfinder.service.gov.uk/Notice/Attachment/ba4599e4-cf32-4d70-8c51-ecd9f25c018b",
+      "format": "application/pdf"
+     },
+     {
+      "id": "9",
+      "description": "5. Pricing Response-UK REiif Event Planning Final",
+      "url": "https://www.contractsfinder.service.gov.uk/Notice/Attachment/481bb4a1-9ca1-418a-b267-da7232023547",
+      "format": "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
+     }
+    ]
+   },
+   "parties": [
+    {
+     "id": "GB-CFS-339020",
+     "name": "East Midlands Combined Authority",
+     "identifier": {
+      "legalName": "East Midlands Combined Authority"
+     },
+     "address": {
+      "streetAddress": "7 Steeplegate",
+      "locality": "Chesterfield",
+      "postalCode": "S40 1SA",
+      "countryName": "GB"
+     },
+     "contactPoint": {
+      "name": "Andrea McCloskey",
+      "email": "andrea.mccloskey@eastmidlands-cca.gov.uk"
+     },
+     "roles": [
+      "buyer"
+     ]
+    }
+   ],
+   "buyer": {
+    "id": "GB-CFS-339020",
+    "name": "East Midlands Combined Authority"
+   }
+  },
+  {
+   "ocid": "ocds-b5fd17-613253d5-09db-4e56-bd69-dff4c04ea32d",
+   "id": "9690b07d-6b5e-4ac4-9caa-251d13193e52-917318",
+   "language": "en",
+   "date": "2026-10-09T16:11:46+01:00",
+   "tag": [
+    "tender"
+   ],
+   "initiationType": "tender",
+   "tender": {
+    "id": "C2026/10r",
+    "title": "Land Maintenance: Martlesham Parish 2027 - 2030",
+    "description": "Tenders are invited for a land maintenance services contract, together with cleaning of bus shelters, for a 3 year contract, commencing 1st April 2027, with the possible extension of the contract for a further 2 years at the end of the 3 years following a review. \r\n\r\nPlease apply to the Clerk, via email: clerk@martleshamcouncil.org.uk or telephone: 01473 612632, by noon on Tuesday 20th October 2026 for a full application pack. \r\n\r\nTenders are to be received by noon on Tuesday 3rd November 2026, The prices are to be based on 1 year's work from April 2027 to March 2028 for a 3 year contract which will increase or decrease according to the retail price index (excluding house prices).\r\n\r\nAll forms should be returned to the Clerk either electronically or by post.",
+    "datePublished": "2026-10-09T16:11:46+01:00",
+    "status": "active",
+    "classification": {
+     "scheme": "CPV",
+     "id": "50800000",
+     "description": "Miscellaneous repair and maintenance services"
+    },
+    "additionalClassifications": [
+     {
+      "scheme": "CPV",
+      "id": "77310000",
+      "description": "Planting and maintenance services of green areas"
+     },
+     {
+      "scheme": "CPV",
+      "id": "77320000",
+      "description": "Sports fields maintenance services"
+     }
+    ],
+    "items": [
+     {
+      "id": "1",
+      "deliveryAddresses": [
+       {
+        "region": "East of England",
+        "countryName": "United Kingdom"
+       }
+      ]
+     }
+    ],
+    "value": {
+     "amount": 32000,
+     "currency": "GBP"
+    },
+    "procurementMethod": "open",
+    "procurementMethodDetails": "Open procedure (below threshold)",
+    "tenderPeriod": {
+     "endDate": "2026-11-02T12:00:00Z"
+    },
+    "contractPeriod": {
+     "startDate": "2027-04-01T00:00:00+01:00",
+     "endDate": "2030-03-31T23:59:59+01:00"
+    },
+    "suitability": {
+     "sme": true,
+     "vcse": false
+    },
+    "mainProcurementCategory": "services",
+    "documents": [
+     {
+      "id": "1",
+      "documentType": "tenderNotice",
+      "description": "Opportunity notice on Contracts Finder",
+      "url": "https://www.contractsfinder.service.gov.uk/Notice/9690b07d-6b5e-4ac4-9caa-251d13193e52",
+      "datePublished": "2026-10-09T16:11:46+01:00",
+      "format": "text/html",
+      "language": "en"
+     }
+    ]
+   },
+   "parties": [
+    {
+     "id": "GB-SRS-supplierregistration.cabinetoffice.gov.uk/7uq22MkP",
+     "name": "Martlesham Parish Council",
+     "identifier": {
+      "legalName": "Martlesham Parish Council",
+      "scheme": "GB-SRS",
+      "id": "supplierregistration.cabinetoffice.gov.uk/7uq22MkP"
+     },
+     "address": {
+      "streetAddress": "Parish Room, Felixstowe Road",
+      "locality": "Woodbridge",
+      "postalCode": "IP124PB",
+      "countryName": "England"
+     },
+     "contactPoint": {
+      "name": "Lisa Burgess",
+      "email": "clerk@martleshamcouncil.org.uk",
+      "telephone": "01473 612632"
+     },
+     "details": {
+      "url": "https://www.martleshamparishcouncil.org.uk"
+     },
+     "roles": [
+      "buyer"
+     ]
+    }
+   ],
+   "buyer": {
+    "id": "GB-SRS-supplierregistration.cabinetoffice.gov.uk/7uq22MkP",
+    "name": "Martlesham Parish Council"
+   }
+  },
+  {
+   "ocid": "ocds-b5fd17-abaf6c34-3ad0-4e0b-94a9-d24aa0c3b462",
+   "id": "58f0e8fe-5f47-4ae3-9dc3-240a08b747f4-917320",
+   "language": "en",
+   "date": "2026-10-09T15:54:15+01:00",
+   "tag": [
+    "tender"
+   ],
+   "initiationType": "tender",
+   "tender": {
+    "id": "6ed49378-acb5-4517-b072-a551dd6c7beb",
+    "title": "CA18538 - Provision of Mechanical and Electrical Services",
+    "description": "Bedford College is seeking an efficient, high quality mechanical and electrical service to provide full M&E support on all College projects at values up to £5m. Selected projects above this value will also utilise the appointed supplier - this will be subject to College requirements and be assessed on a job-by-job basis. Similarly, there may be projects below £5m which will not form part of this contract, at the discretion of the College.\r\n\r\nTo access this competition: \r\n\r\nRegistered:\r\nLogin to https://suppliers.multiquote.com and view the opportunity CA18538.\r\n\r\nNot registered:\r\nVisit https://suppliers.multiquote.com then register and quote CA18538 as the reason for registration. \r\n\r\n Any queries please contact MultiQuote on 020 3920 8054.",
+    "datePublished": "2026-10-09T15:54:15+01:00",
+    "status": "active",
+    "classification": {
+     "scheme": "CPV",
+     "id": "71321000",
+     "description": "Engineering design services for mechanical and electrical installations for buildings"
+    },
+    "items": [
+     {
+      "id": "1",
+      "deliveryAddresses": [
+       {
+        "postalCode": "MK42 9AH"
+       },
+       {
+        "countryName": "British Oversea Territories"
+       },
+       {
+        "countryName": "Channel Islands"
+       },
+       {
+        "countryName": "Europe"
+       },
+       {
+        "countryName": "Isle of Man"
+       },
+       {
+        "countryName": "Rest of the World"
+       },
+       {
+        "countryName": "United Kingdom"
+       }
+      ]
+     }
+    ],
+    "value": {
+     "amount": 700000,
+     "currency": "GBP"
+    },
+    "procurementMethod": "open",
+    "procurementMethodDetails": "Open procedure",
+    "tenderPeriod": {
+     "endDate": "2026-11-10T12:00:00Z"
+    },
+    "contractPeriod": {
+     "startDate": "2026-12-01T00:00:00Z",
+     "endDate": "2030-12-02T23:59:59Z"
+    },
+    "suitability": {
+     "sme": true,
+     "vcse": false
+    },
+    "mainProcurementCategory": "services",
+    "documents": [
+     {
+      "id": "1",
+      "documentType": "tenderNotice",
+      "description": "Opportunity notice on Contracts Finder",
+      "url": "https://www.contractsfinder.service.gov.uk/Notice/58f0e8fe-5f47-4ae3-9dc3-240a08b747f4",
+      "datePublished": "2026-10-09T15:54:15+01:00",
+      "format": "text/html",
+      "language": "en"
+     }
+    ]
+   },
+   "parties": [
+    {
+     "id": "GB-CFS-10193",
+     "name": "Bedford College",
+     "identifier": {
+      "legalName": "Bedford College"
+     },
+     "address": {
+      "streetAddress": "Cauldwell Street",
+      "locality": "Bedford",
+      "postalCode": "MK42 9AH",
+      "countryName": "England"
+     },
+     "contactPoint": {
+      "name": "Procurement Team",
+      "email": "support@multiquote.com",
+      "telephone": "0151 482 9230"
+     },
+     "details": {
+      "url": "https://suppliers.multiquote.com"
+     },
+     "roles": [
+      "buyer"
+     ]
+    }
+   ],
+   "buyer": {
+    "id": "GB-CFS-10193",
+    "name": "Bedford College"
+   }
+  }
+ ],
+ "links": {
+  "next": "https://www.contractsfinder.service.gov.uk/Published/Notices/OCDS/Search?publishedFrom=2026-10-05T00:00:00&publishedTo=2026-10-11T00:00:00&stages=tender&limit=5&cursor=cHVibGlzaGVkRnJvbT0yMDI2LTEwLTA1VDAwOjAwOjAwfHB1Ymxpc2hlZFRvPTIwMjYtMTAtMTFUMDA6MDA6MDB8c3RhZ2VzPXRlbmRlcnxsaW1pdD01fG5leHRDdXJzb3I9Nzg2MjIw"
+ }
+}

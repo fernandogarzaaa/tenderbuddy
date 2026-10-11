@@ -1,0 +1,107 @@
+[build-system]
+requires = ["hatchling>=1.27"]
+build-backend = "hatchling.build"
+
+[project]
+name = "tenderbuddy"
+version = "1.0.0"
+description = "AI tender discovery and bid preparation: find matching government tenders, check eligibility, and prepare bids faster."
+readme = "README.md"
+license = "MIT"
+license-files = ["LICENSE"]
+authors = [{ name = "Fernando Garza" }]
+requires-python = ">=3.11"
+keywords = ["tenders", "procurement", "bids", "ted", "fastapi", "llm"]
+classifiers = [
+  "Development Status :: 5 - Production/Stable",
+  "Framework :: FastAPI",
+  "Operating System :: OS Independent",
+  "Programming Language :: Python :: 3",
+  "Programming Language :: Python :: 3.11",
+  "Programming Language :: Python :: 3.12",
+  "Programming Language :: Python :: 3.13",
+  "Topic :: Office/Business",
+]
+dependencies = [
+  "alembic>=1.13,<2",
+  "apscheduler>=3.10,<4",
+  "bcrypt>=4.1,<6",
+  "fastapi>=0.115,<1",
+  "httpx>=0.27,<1",
+  "jinja2>=3.1.4,<4",
+  "pydantic>=2.7,<3",
+  "pydantic-settings>=2.7,<3",
+  "pyjwt>=2.8,<3",
+  "pypdf>=5,<7",
+  "python-multipart>=0.0.18",
+  "reportlab>=4.2,<6",
+  "sqlalchemy>=2.0.30,<3",
+  "uvicorn[standard]>=0.30,<1",
+]
+
+[project.optional-dependencies]
+postgres = ["psycopg[binary]>=3.2,<4"]
+dev = [
+  "mypy>=1.11",
+  "pytest>=8",
+  "pytest-cov>=5",
+  "ruff>=0.6",
+  "testteeth>=0.2",
+  "types-reportlab",
+]
+
+[project.scripts]
+tenderbuddy = "tenderbuddy.cli:main"
+
+[project.urls]
+Homepage = "https://github.com/fernandogarzaaa/tenderbuddy"
+Issues = "https://github.com/fernandogarzaaa/tenderbuddy/issues"
+Changelog = "https://github.com/fernandogarzaaa/tenderbuddy/blob/main/CHANGELOG.md"
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/tenderbuddy"]
+
+[tool.hatch.build.targets.sdist]
+include = ["src/tenderbuddy", "tests", "assets", "scripts", "README.md", "CHANGELOG.md", "LICENSE",
+           "SECURITY.md", ".env.example", "requirements.lock", "Dockerfile", "docker-compose.yml"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+addopts = "-q --strict-markers -m 'not live'"
+markers = ["live: hits real public tender APIs (run with: pytest -m live)"]
+
+[tool.coverage.run]
+source = ["tenderbuddy"]
+branch = true
+
+[tool.coverage.report]
+show_missing = true
+skip_covered = true
+
+[tool.ruff]
+line-length = 120
+target-version = "py311"
+src = ["src", "tests"]
+
+[tool.ruff.lint]
+select = ["E", "F", "W", "I", "B", "UP", "S", "SIM", "RUF", "C4", "PT"]
+ignore = ["S101", "B008", "RUF001", "RUF012", "S104"]
+
+[tool.ruff.lint.per-file-ignores]
+"tests/**" = ["S105", "S106", "S108", "E501", "S311"]
+"src/tenderbuddy/migrations/**" = ["S608"]
+
+[tool.mypy]
+python_version = "3.11"
+mypy_path = "src"
+packages = ["tenderbuddy"]
+strict = true
+warn_unreachable = true
+plugins = ["pydantic.mypy"]
+
+[[tool.mypy.overrides]]
+module = ["apscheduler.*"]
+ignore_missing_imports = true
+
+[tool.testteeth]
+paths = ["src/tenderbuddy/matcher.py", "src/tenderbuddy/rfp.py", "src/tenderbuddy/connectors", "src/tenderbuddy/ai", "src/tenderbuddy/security.py", "src/tenderbuddy/services.py"]

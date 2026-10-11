@@ -57,7 +57,7 @@ def parse_release(release: dict[str, Any]) -> TenderRecord | None:
         region=regions[0] if regions else "",
         currency=str(value.get("currency") or "GBP"),
         estimated_value=parse_float(value.get("amount")),
-        published_at=parse_iso_datetime(tender.get("datePublished") or release.get("date")),
+        published_at=parse_iso_datetime(tender.get("datePublished") or release.get("date"), end_of_day=False),
         description=str(tender.get("description") or "")[:20000],
         url=url,
     )
