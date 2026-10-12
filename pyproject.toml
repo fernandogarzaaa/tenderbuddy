@@ -4,7 +4,7 @@ build-backend = "hatchling.build"
 
 [project]
 name = "tenderbuddy"
-version = "1.0.0"
+version = "1.0.1"
 description = "AI tender discovery and bid preparation: find matching government tenders, check eligibility, and prepare bids faster."
 readme = "README.md"
 license = "MIT"

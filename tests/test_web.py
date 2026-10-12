@@ -10,6 +10,7 @@ import httpx
 import pytest
 from fastapi.testclient import TestClient
 
+import tenderbuddy
 from tenderbuddy.models import utcnow
 from tests.conftest import ADMIN_EMAIL, bearer, csrf, load_fixture, login, make_pdf
 
@@ -19,7 +20,7 @@ FUTURE = (utcnow() + timedelta(days=14)).strftime("%Y-%m-%dT%H:%M")
 # ---------------------------------------------------------------- platform
 
 def test_health_and_readiness(client: TestClient) -> None:
-    assert client.get("/healthz").json() == {"status": "ok", "version": "1.0.0"}
+    assert client.get("/healthz").json() == {"status": "ok", "version": tenderbuddy.__version__}
     assert client.get("/readyz").json() == {"status": "ok", "database": True, "migrations": True}
     assert client.get("/api/health").json()["status"] == "ok"
 

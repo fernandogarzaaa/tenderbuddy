@@ -6,6 +6,7 @@ from pathlib import Path
 
 import pytest
 
+import tenderbuddy
 from tenderbuddy import cli
 from tenderbuddy.app import scheduled_sync, start_scheduler
 from tenderbuddy.config import reset_settings_cache
@@ -31,7 +32,7 @@ def test_cli_version(capsys: pytest.CaptureFixture[str]) -> None:
     with pytest.raises(SystemExit) as exc:
         cli.main(["--version"])
     assert exc.value.code == 0
-    assert "tenderbuddy 1.0.0" in capsys.readouterr().out
+    assert f"tenderbuddy {tenderbuddy.__version__}" in capsys.readouterr().out
 
 
 def test_cli_migrate_user_sync_seed(env: Path, capsys: pytest.CaptureFixture[str]) -> None:

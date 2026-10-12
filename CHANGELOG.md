@@ -7,6 +7,16 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [1.0.1] - 2026-10-13
+
+### Fixed
+- Web UI on phones: the fixed 15rem sidebar left ~135px for content on a
+  375px screen. Below 768px it now stacks above the page and the nav
+  scrolls horizontally (plain CSS in `app.css`/`assets/tailwind.css`, since
+  the CSP disallows inline styles).
+- Accessibility: active nav link has `aria-current="page"`, the nav is
+  labelled, and there is a skip-to-content link.
+
 ## [1.0.0] - 2026-10-11
 
 First stable release. A rewrite of the beta as an installable package (`src/tenderbuddy`).
