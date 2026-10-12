@@ -1,3 +1,16 @@
 @import "tailwindcss" source(none);
 @source "../src/tenderbuddy/templates";
 @source "../src/tenderbuddy/static/js/dashboard.js";
+
+/* Hand-written (not generated): narrow-screen shell. The fixed 15rem
+   sidebar left ~135px for content on a 375px phone; stack it instead.
+   Kept in plain CSS because the CSP forbids inline styles. */
+@media (max-width: 47.99rem) {
+  .app-shell { flex-direction: column; }
+  .app-side { width: 100%; border-right-width: 0; border-bottom: 1px solid var(--color-stone-200, #e7e5e4); }
+  .app-side nav { display: flex; overflow-x: auto; gap: .25rem; padding-block: .5rem; }
+  .app-side nav > * { margin-block: 0; white-space: nowrap; }
+  .app-main > div { padding-inline: 1rem; }
+}
+.skip-link { position: absolute; left: -999px; }
+.skip-link:focus { left: .5rem; top: .5rem; z-index: 50; background: #fff; padding: .5rem .75rem; border-radius: .5rem; }
