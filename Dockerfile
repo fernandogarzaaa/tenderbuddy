@@ -27,4 +27,4 @@ VOLUME ["/data"]
 EXPOSE 8004
 HEALTHCHECK --interval=30s --timeout=5s --start-period=20s --retries=3 \
   CMD python -c "import sys, urllib.request; urllib.request.urlopen(sys.argv[1], timeout=4)" "http://127.0.0.1:${PORT}/healthz"
-CMD ["sh", "-c", "tenderbuddy migrate && exec tenderbuddy serve --host 0.0.0.0 --port ${PORT} --forwarded-allow-ips '*'"]
+CMD ["sh", "-c", "tenderbuddy migrate && exec tenderbuddy serve --host 0.0.0.0 --port ${PORT} --forwarded-allow-ips ${FORWARDED_ALLOW_IPS:-127.0.0.1}"]

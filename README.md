@@ -155,7 +155,9 @@ src/tenderbuddy/
 
 - **Docker Compose** (`docker-compose.yml`): app + PostgreSQL 16 with persistent volumes; the image
   runs as a non-root user with a health check. Put it behind a TLS-terminating reverse proxy
-  (Caddy, nginx, Traefik) and keep `COOKIE_SECURE=true`.
+  (Caddy, nginx, Traefik) and keep `COOKIE_SECURE=true`. The image trusts `X-Forwarded-*`
+  headers only from `FORWARDED_ALLOW_IPS` (default `127.0.0.1`); set it to your proxy's address
+  so client IPs (login rate limit, logs) and `https` URLs are right.
 - **Single container** (SQLite): `docker build -t tenderbuddy . && docker run -p 8004:8004 -v tb:/data
   -e SECRET_KEY=... -e ADMIN_PASSWORD=... tenderbuddy`.
 - **Any PaaS that runs a Dockerfile** works the same way: set the environment variables above and
