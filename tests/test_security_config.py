@@ -155,8 +155,6 @@ def test_get_settings_cache(monkeypatch: pytest.MonkeyPatch) -> None:
 def test_docker_image_does_not_trust_forwarded_headers_from_everyone():
     """`--forwarded-allow-ips '*'` with a directly published port lets any client
     spoof X-Forwarded-For and dodge the per-IP login rate limit."""
-    from pathlib import Path
-
     dockerfile = (Path(__file__).resolve().parents[1] / "Dockerfile").read_text()
     cmd = [line for line in dockerfile.splitlines() if line.startswith("CMD")][-1]
     assert "--forwarded-allow-ips '*'" not in cmd
